@@ -127,25 +127,25 @@ const checkMatch = () => {
   if (selectedWords.value.length !== 2) return;
 
   const [first, second] = selectedWords.value;
-  
-  // Get the original indices of the selected words
-  const firstIndex = first.type === 'turkish' 
-    ? turkishWords.value[first.index].index 
-    : bengaliWords.value[first.index].index;
-    
-  const secondIndex = second.type === 'turkish' 
-    ? turkishWords.value[second.index].index 
-    : bengaliWords.value[second.index].index;
 
-  // If the indices match and they're from different columns, it's a match
-  if (firstIndex === secondIndex && first.type !== second.type) {
-    matches.value.push(firstIndex);
+  // Get the full word objects for the selected items
+  const firstWordObject = first.type === 'turkish'
+    ? turkishWords.value[first.index]
+    : shuffledBengaliWords.value[first.index];
+
+  const secondWordObject = second.type === 'turkish'
+    ? turkishWords.value[second.index]
+    : shuffledBengaliWords.value[second.index];
+
+  // If the original indices match and they're from different columns, it's a match
+  if (firstWordObject.index === secondWordObject.index && first.type !== second.type) {
+    matches.value.push(firstWordObject.index);
     
     // Clear selection immediately for correct matches
     selectedWords.value = [];
     
     // Check if all words are matched
-    if (matches.value.length === wordCount * 2) {
+    if (matches.value.length === wordCount) {
       gameComplete.value = true;
       toast.add({
         severity: 'success',
