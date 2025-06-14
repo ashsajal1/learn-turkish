@@ -4,6 +4,7 @@ import HomeView from "./pages/Home.vue";
 import AboutView from "./pages/About.vue";
 import NotFound from "./pages/NotFound.vue";
 import Grammar from "./pages/Grammar.vue";
+import Words from "./pages/Words.vue";
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     path: "/grammar",
     meta: { title: "Grammar", description: "Welcome to our grammar page." },
     component: Grammar,
+  },
+  {
+    path: "/words",
+    meta: { title: "Words", description: "Welcome to our words page." },
+    component: Words,
   },
   {
     path: "/about",
