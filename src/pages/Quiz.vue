@@ -64,10 +64,10 @@
           </div>
         </div>
 
-        <!-- Reverse Translation Question -->
+        <!-- Reverse Translation Question (Bengali to Turkish) -->
         <div v-else-if="currentQuestion.type === 'reverse-translation'" class="text-center">
           <div class="text-2xl font-bold mb-6">
-            What is the Turkish word for "{{ currentQuestion.translation }}"?
+            What is the Turkish word for "<span class="text-primary-600 dark:text-primary-400">{{ currentQuestion.translation }}</span>"?
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Button 
@@ -249,25 +249,49 @@ const generateQuestions = () => {
     // Determine question type (distribute evenly)
     const type = questionTypes[index % questionTypes.length];
     
-    // Get 3 random incorrect answers
-    const allTranslations = words
-      .filter(w => w.translation !== word.translation)
-      .map(w => w.translation);
-    
-    const shuffledIncorrect = [...allTranslations]
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 3);
-    
-    const options = [...shuffledIncorrect, word.translation]
-      .sort(() => 0.5 - Math.random());
-    
-    return {
-      word: word.word,
-      translation: word.translation,
-      type,
-      options,
-      correctAnswer: word.translation
-    };
+    if (type === 'reverse-translation') {
+      // For reverse translation (Bengali to Turkish)
+      // Get 3 random incorrect Turkish words
+      const allTurkishWords = words
+        .filter(w => w.word !== word.word)
+        .map(w => w.word);
+      
+      const shuffledIncorrect = [...allTurkishWords]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3);
+      
+      const options = [...shuffledIncorrect, word.word]
+        .sort(() => 0.5 - Math.random());
+      
+      return {
+        word: word.word,
+        translation: word.translation,
+        type,
+        options,
+        correctAnswer: word.word  // The correct Turkish word
+      };
+    } else {
+      // For regular translation and listening questions (Turkish to Bengali)
+      // Get 3 random incorrect Bengali translations
+      const allTranslations = words
+        .filter(w => w.translation !== word.translation)
+        .map(w => w.translation);
+      
+      const shuffledIncorrect = [...allTranslations]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3);
+      
+      const options = [...shuffledIncorrect, word.translation]
+        .sort(() => 0.5 - Math.random());
+      
+      return {
+        word: word.word,
+        translation: word.translation,
+        type,
+        options,
+        correctAnswer: word.translation
+      };
+    }
   });
 };
 
