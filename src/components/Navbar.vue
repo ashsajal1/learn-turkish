@@ -5,7 +5,7 @@
   :class="{
     'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-md': isScrolled,
     'bg-white/0 dark:bg-gray-900/0': !isScrolled,
-    'border-b border-gray-200 dark:border-gray-700': isScrolled
+    
   }"
 >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,7 +100,7 @@
 </template>
 
 <script setup lang="ts">
-import { useColorMode, useCycleList, useScroll } from "@vueuse/core";
+import { useColorMode, useCycleList } from "@vueuse/core";
 import { Button, Drawer } from "primevue";
 import { watchEffect, computed, ref, onMounted, onUnmounted } from "vue";
 
