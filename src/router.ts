@@ -5,6 +5,7 @@ import AboutView from "./pages/About.vue";
 import NotFound from "./pages/NotFound.vue";
 import Grammar from "./pages/Grammar.vue";
 import Words from "./pages/Words.vue";
+import Quiz from "./pages/Quiz.vue";
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     path: "/words",
     meta: { title: "Words", description: "Welcome to our words page." },
     component: Words,
+  },
+  {
+    path: "/quiz",
+    meta: { title: "Quiz", description: "Welcome to our quiz page." },
+    component: Quiz,
   },
   {
     path: "/about",
