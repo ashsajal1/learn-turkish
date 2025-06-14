@@ -181,7 +181,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import { words } from '../utils/words';
 import DataTable from 'primevue/datatable';
@@ -191,7 +191,6 @@ import Dropdown from 'primevue/dropdown';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button';
 import ProgressSpinner from 'primevue/progressspinner';
-import Tooltip from 'primevue/tooltip';
 
 const toast = useToast();
 const loading = ref(false);
