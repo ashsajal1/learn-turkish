@@ -116,7 +116,7 @@ const filteredWords = computed(() => {
         w.translation.toLowerCase().includes(term)
       );
     })
-    .sort((a, b) => a.id - b.id);
+    .sort((a, b) => Number(a.id) - Number(b.id));
 });
 </script>
 
