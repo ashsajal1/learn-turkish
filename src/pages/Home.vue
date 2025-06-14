@@ -6,7 +6,7 @@
         তুর্কি ভাষা শিখুন বাংলায়
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-        এই ওয়েবসাইটে আপনাকে স্বাগতম। এখানে আপনি তুর্কি ভাষার ব্যাকরণ, শব্দভাণ্ডার এবং মজাদার অনুশীলনী শিখতে পারবেন।
+        এই ওয়েবসাইটে আপনাকে স্বাগতম। এখানে আপনি তুর্কি ভাষার ব্যাকরণ, শব্দভাণ্ডার, উচ্চারণ এবং মজাদার অনুশীলনী শিখতে পারবেন।
       </p>
     </div>
 
@@ -52,6 +52,26 @@
         </div>
       </router-link>
 
+      <router-link to="/pronunciation" class="feature-card">
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow h-full">
+          <div class="text-pink-500 dark:text-pink-400 mb-4">
+            <i class="pi pi-volume-up text-4xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">উচ্চারণ</h3>
+          <p class="text-gray-600 dark:text-gray-300">তুর্কি শব্দের সঠিক উচ্চারণ শিখুন</p>
+        </div>
+      </router-link>
+
+      <router-link to="/accent" class="feature-card">
+        <div class="p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow h-full">
+          <div class="text-teal-500 dark:text-teal-400 mb-4">
+            <i class="pi pi-comment text-4xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">অ্যাকসেন্ট</h3>
+          <p class="text-gray-600 dark:text-gray-300">তুর্কি ভাষার সুর ও উচ্চারণের সূক্ষ্মতা বুঝুন</p>
+        </div>
+      </router-link>
+
       <router-link to="/about" class="feature-card">
         <div class="p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md hover:shadow-lg transition-shadow h-full">
           <div class="text-red-500 dark:text-red-400 mb-4">
@@ -79,6 +99,12 @@
         <router-link to="/puzzle">
           <Button label="শব্দ মেলান" icon="pi pi-th-large" class="p-button-outlined" />
         </router-link>
+        <router-link to="/pronunciation">
+          <Button label="উচ্চারণ" icon="pi pi-volume-up" class="p-button-outlined" />
+        </router-link>
+        <router-link to="/accent">
+          <Button label="অ্যাকসেন্ট" icon="pi pi-comment" class="p-button-outlined" />
+        </router-link>
       </div>
     </div>
   </div>
@@ -100,23 +126,32 @@ import Button from 'primevue/button';
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
+}
+
+.feature-card div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card i {
+  transition: transform 0.3s;
+}
+
+.feature-card:hover i {
+  transform: scale(1.1);
 }
 
 /* Dark mode transitions */
-.bg-white, .bg-blue-50, .dark\:bg-gray-800, .dark\:bg-blue-900\/20 {
-  transition: background-color 0.3s ease-in-out;
-}
-
-/* Ensure text colors transition smoothly in dark mode */
-.text-gray-800, .text-gray-600, .dark\:text-white, .dark\:text-gray-300 {
-  transition: color 0.3s ease-in-out;
+.dark .feature-card {
+  transition: all 0.3s ease;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .home-container {
-    padding: 1rem;
+    padding: 1.5rem 1rem;
   }
   
   .feature-card {
