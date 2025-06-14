@@ -1,52 +1,69 @@
-# Vue 3 + TypeScript + Tailwind CSS + PrimeVue + Pinia Template
+# তুর্কি ভাষা শিখুন | Learn Turkish
 
-A Vue 3 template with TypeScript, Tailwind CSS, PrimeVue, and Pinia.js for building modern web applications.
+একটি ইন্টারেক্টিভ ওয়েব অ্যাপ্লিকেশন যা বাংলাভাষীদের জন্য তুর্কি ভাষা শেখার সুবিধা প্রদান করে।
 
-## Features
+## বৈশিষ্ট্যাবলী | Features
 
-- **Vue 3** with Composition API
-- **TypeScript** for static typing
-- **Tailwind CSS** for utility-first styling
-- **PrimeVue** for rich UI components
-- **Pinia** for state management
+- **ব্যাকরণ** - তুর্কি ভাষার ব্যাকরণের মৌলিক বিষয়গুলি শিখুন
+- **শব্দভাণ্ডার** - দরকারী তুর্কি শব্দ এবং বাক্যাংশ শিখুন
+- **উচ্চারণ গাইড** - তুর্কি শব্দের সঠিক উচ্চারণ শিখুন
+- **অ্যাকসেন্ট** - তুর্কি ভাষার সুর ও উচ্চারণের সূক্ষ্মতা বুঝুন
+- **কুইজ** - আপনার জ্ঞান পরীক্ষা করুন মজাদার কুইজের মাধ্যমে
+- **শব্দ মেলান** - মজাদার গেমের মাধ্যমে শব্দ শিখুন
 
-## Installation
+## প্রযুক্তি স্ট্যাক | Tech Stack
 
-1. Clone the repository:
+- **Vue 3** - Composition API
+- **TypeScript** - টাইপ সেফটি
+- **Tailwind CSS** - মডার্ন UI ডিজাইন
+- **PrimeVue** - রিচ UI কম্পোনেন্ট
+- **Pinia** - স্টেট ম্যানেজমেন্ট
+
+## ইনস্টলেশন | Installation
+
+1. রিপোজিটরি ক্লোন করুন:
 
    ```bash
-   git clone https://github.com/ashsajal1/vue3-fancy-template.git
-   cd vue3-fancy-template
+   git clone https://github.com/ashsajal1/learn-turkish.git
+   cd learn-turkish
    ```
 
-2. Install dependencies:
+2. ডিপেন্ডেন্সি ইনস্টল করুন:
 
    ```bash
    npm install
-   # or
+   # অথবা
    pnpm install
    ```
 
-3. Run the development server:
+3. ডেভেলপমেন্ট সার্ভার চালু করুন:
 
    ```bash
    npm run dev
-   # or
+   # অথবা
    pnpm dev
    ```
+   
+   তারপর ব্রাউজে `http://localhost:5173` এ যান।
 
-4. Visit `http://localhost:5173` in your browser to view the app.
+4. প্রোডাকশনের জন্য বিল্ড করুন:
 
-## Usage
+   ```bash
+   npm run build
+   # অথবা
+   pnpm build
+   ```
 
-- Tailwind CSS is set up and ready to use.
-- PrimeVue components can be imported and used in your Vue components.
-- Pinia.js is set up for state management.
+## ব্যবহার | Usage
 
-## Contributions
+- Tailwind CSS ব্যবহারের জন্য প্রস্তুত
+- PrimeVue কম্পোনেন্ট ইম্পোর্ট করে ব্যবহার করুন
+- Pinia.js স্টেট ম্যানেজমেন্টের জন্য সেটআপ করা আছে
 
-Feel free to fork and submit pull requests!
+## অবদান | Contributions
 
-## License
+আপনার অবদান স্বাগতম! ফর্ক করে পুল রিকুয়েস্ট পাঠাতে পারেন।
 
-MIT License - see the [LICENSE](LICENSE) file for details.
+## লাইসেন্স | License
+
+[MIT লাইসেন্স](LICENSE) এর অধীনে লাইসেন্সপ্রাপ্ত
