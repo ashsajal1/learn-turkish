@@ -7,6 +7,7 @@ import Grammar from "./pages/Grammar.vue";
 import Words from "./pages/Words.vue";
 import Quiz from "./pages/Quiz.vue";
 import Puzzle from "./pages/Puzzle.vue";
+import Accent from "./pages/Accent.vue";
 
 const routes = [
   {
@@ -33,6 +34,11 @@ const routes = [
     path: "/puzzle",
     meta: { title: "Word Match Puzzle", description: "Match Turkish words with their Bengali translations." },
     component: Puzzle,
+  },
+  {
+    path: "/accent",
+    meta: { title: "Accent", description: "Accent" },
+    component: Accent,
   },
   {
     path: "/about",
