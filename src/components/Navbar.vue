@@ -1,7 +1,15 @@
 <template>
-  <nav class="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700">
+  <nav 
+  ref="navbar" 
+  class="fixed  top-0 left-0 right-0 z-50 transition-all duration-300"
+  :class="{
+    'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-md': isScrolled,
+    'bg-white/0 dark:bg-gray-900/0': !isScrolled,
+    'border-b border-gray-200 dark:border-gray-700': isScrolled
+  }"
+>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
+      <div class="flex justify-between items-center h-[80px]">
         <!-- Logo -->
         <div class="flex-shrink-0 flex items-center">
           <RouterLink to="/" class="text-2xl font-bold text-blue-600 dark:text-blue-400">
@@ -92,9 +100,9 @@
 </template>
 
 <script setup lang="ts">
-import { useColorMode, useCycleList } from "@vueuse/core";
+import { useColorMode, useCycleList, useScroll } from "@vueuse/core";
 import { Button, Drawer } from "primevue";
-import { watchEffect, computed, ref } from "vue";
+import { watchEffect, computed, ref, onMounted, onUnmounted } from "vue";
 
 // Navigation items
 const navItems = [
@@ -128,4 +136,20 @@ watchEffect(() => (mode.value = state.value));
 const themeIcon = computed(() =>
   state.value === "dark" ? "pi pi-sun" : "pi pi-moon"
 );
+
+// Navbar scroll effect
+const navbar = ref<HTMLElement | null>(null);
+const isScrolled = ref(false);
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 10;
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);  
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
