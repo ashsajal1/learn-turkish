@@ -91,6 +91,7 @@ const toast = useToast();
 const gameComplete = ref(false);
 const selectedWords = ref<{type: 'turkish' | 'bengali', index: number}[]>([]);
 const matches = ref<number[]>([]);
+const incorrectSelection = ref(false);
 const turkishWords = ref<{word: string, index: number}[]>([]);
 const bengaliWords = ref<{translation: string, index: number}[]>([]);
 const shuffledBengaliWords = ref<{translation: string, index: number}[]>([]);
@@ -101,15 +102,21 @@ const wordCount = 8;
 // Get word classes based on selection and match state
 const getWordClasses = (type: 'turkish' | 'bengali', index: number) => {
   const isSelected = selectedWords.value.some(sw => sw.type === type && sw.index === index);
-  const isMatched = matches.value.includes(type === 'turkish' 
-    ? turkishWords.value[index].index 
-    : bengaliWords.value[index].index);
+  
+  // Get the correct word object based on type and whether it's shuffled
+  const wordObj = type === 'turkish' 
+    ? turkishWords.value[index]
+    : shuffledBengaliWords.value[index];
+  
+  const isMatched = matches.value.includes(wordObj.index);
+  const isIncorrect = incorrectSelection.value && isSelected;
   
   return {
-    'bg-blue-100 dark:bg-blue-900 border-blue-500': isSelected && !isMatched,
+    'bg-blue-100 dark:bg-blue-900 border-blue-500': isSelected && !isMatched && !isIncorrect,
     'bg-green-100 dark:bg-green-900 border-green-500': isMatched,
+    'bg-red-100 dark:bg-red-900 border-red-500': isIncorrect,
     'hover:bg-gray-100 dark:hover:bg-gray-700': !isSelected && !isMatched,
-    'border-gray-200 dark:border-gray-600': !isSelected && !isMatched,
+    'border-gray-200 dark:border-gray-600': !isSelected && !isMatched && !isIncorrect,
     'opacity-50': isMatched,
     'cursor-default': isMatched,
   };
@@ -134,6 +141,9 @@ const checkMatch = () => {
   if (firstIndex === secondIndex && first.type !== second.type) {
     matches.value.push(firstIndex);
     
+    // Clear selection immediately for correct matches
+    selectedWords.value = [];
+    
     // Check if all words are matched
     if (matches.value.length === wordCount * 2) {
       gameComplete.value = true;
@@ -152,28 +162,35 @@ const checkMatch = () => {
       });
     }
   } else {
+    // Show incorrect match feedback
+    incorrectSelection.value = true;
+    
     toast.add({
       severity: 'warn',
       summary: 'No match',
       detail: 'Try again!',
       life: 1000
     });
+    
+    // Clear selection and reset incorrect state after a delay
+    setTimeout(() => {
+      selectedWords.value = [];
+      incorrectSelection.value = false;
+    }, 1000);
   }
-  
-  // Clear selection after a short delay
-  setTimeout(() => {
-    selectedWords.value = [];
-  }, 500);
 };
 
 // Handle word selection
 const selectWord = (type: 'turkish' | 'bengali', index: number) => {
+  // Don't allow selecting during incorrect selection feedback
+  if (incorrectSelection.value) return;
+  
   // Don't allow selecting already matched words
-  const wordIndex = type === 'turkish' 
-    ? turkishWords.value[index].index 
-    : bengaliWords.value[index].index;
+  const wordObj = type === 'turkish' 
+    ? turkishWords.value[index]
+    : shuffledBengaliWords.value[index];
     
-  if (matches.value.includes(wordIndex)) return;
+  if (matches.value.includes(wordObj.index)) return;
   
   // Don't allow selecting the same word twice
   if (selectedWords.value.some(sw => sw.type === type && sw.index === index)) {
