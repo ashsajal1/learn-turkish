@@ -23,14 +23,14 @@
         </div>
         <div class="flex-1 w-full">
           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Search ("ara")</label>
-          <span class="p-input-icon-left w-full">
-            <i class="pi pi-search text-gray-400" />
+          <div class="flex items-center w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md px-2">
+            <i class="pi pi-search text-gray-400 mr-2" />
             <InputText 
               v-model="search" 
-              class="w-full"
+              class="w-full border-0 focus:ring-0 bg-transparent"
               placeholder="Search Turkish or Bengali..."
             />
-          </span>
+          </div>
         </div>
         <div class="w-full md:w-auto">
           <Button 
