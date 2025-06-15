@@ -9,6 +9,7 @@ import Quiz from "./pages/Quiz.vue";
 import Puzzle from "./pages/Puzzle.vue";
 import Accent from "./pages/Accent.vue";
 import Pronunciation from "./pages/Pronunciation.vue";
+import Usage from "./pages/Usage.vue";
 
 const routes = [
   {
@@ -45,6 +46,11 @@ const routes = [
     path: "/pronunciation",
     meta: { title: "Pronunciation", description: "Pronunciation" },
     component: Pronunciation,
+  },
+  {
+    path: "/usage",
+    meta: { title: "Usage", description: "Pronunciation" },
+    component: Usage,
   },
   {
     path: "/about",
