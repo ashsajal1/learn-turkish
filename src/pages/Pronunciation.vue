@@ -305,23 +305,17 @@
 </template>
 
 <script setup>
-// This component uses Tailwind CSS for styling with dark mode support
-// Dark mode is automatically applied based on the user's system preference
-// or can be toggled if you have a theme switcher in your app
+import { onMounted } from 'vue';
+import { useTurkishSpeakerStore } from '../stores/turkishSpeaker';
+
+const turkishSpeaker = useTurkishSpeakerStore();
+
+onMounted(() => {
+  // Optionally, preload Turkish voices or do any setup
+  window.speechSynthesis.getVoices();
+});
 
 function speakTurkish(text) {
-  if (typeof window !== 'undefined' && window.speechSynthesis) {
-    const utter = new window.SpeechSynthesisUtterance(text);
-    // Try to select a Turkish voice
-    const voices = window.speechSynthesis.getVoices();
-    const trVoice = voices.find(v => v.lang && v.lang.startsWith('tr'));
-    if (trVoice) {
-      utter.voice = trVoice;
-    }
-    utter.lang = 'tr-TR';
-    window.speechSynthesis.speak(utter);
-  } else {
-    alert('Speech synthesis not supported in this browser.');
-  }
+  turkishSpeaker.speak(text);
 }
 </script>
