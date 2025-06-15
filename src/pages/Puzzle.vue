@@ -24,7 +24,7 @@
     </div>
 
     <!-- Game Board -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="grid grid-cols-2 gap-6 mb-8">
       <!-- Turkish Words Column -->
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
         <h2 class="text-xl font-semibold mb-4 text-center text-blue-600 dark:text-blue-400">Turkish Words</h2>
@@ -261,17 +261,5 @@ onMounted(() => {
 /* Smooth transitions for word cards */
 [class*="bg-"] {
   transition: background-color 0.3s, border-color 0.3s, opacity 0.3s;
-}
-
-/* Responsive adjustments */
-@media (max-width: 640px) {
-  .puzzle-container {
-    padding: 1rem;
-  }
-  
-  .grid-cols-2 {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
 }
 </style>
