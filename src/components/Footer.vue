@@ -126,10 +126,12 @@ import { RouterLink } from "vue-router";
 
 const navItems = [
   { name: 'হোম', path: '/' },
+  { name: 'উচ্চারণ', path: '/pronunciation' },
   { name: 'ব্যাকরণ', path: '/grammar' },
   { name: 'শব্দভাণ্ডার', path: '/words' },
   { name: 'কুইজ', path: '/quiz' },
   { name: 'শব্দ মেলান', path: '/puzzle' },
+  { name: 'ব্যবহার', path: '/usage' },
   { name: 'আমাদের সম্পর্কে', path: '/about' },
 ];
 </script>

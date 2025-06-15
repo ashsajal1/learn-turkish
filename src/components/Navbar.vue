@@ -107,10 +107,12 @@ import { watchEffect, computed, ref, onMounted, onUnmounted } from "vue";
 // Navigation items
 const navItems = [
   { name: 'হোম', path: '/', icon: 'pi pi-home' },
+  { name: 'উচ্চারণ', path: '/pronunciation', icon: 'pi pi-volume-up' },
   { name: 'ব্যাকরণ', path: '/grammar', icon: 'pi pi-book' },
   { name: 'শব্দভাণ্ডার', path: '/words', icon: 'pi pi-list' },
   { name: 'কুইজ', path: '/quiz', icon: 'pi pi-question-circle' },
   { name: 'শব্দ মেলান', path: '/puzzle', icon: 'pi pi-th-large' },
+  { name: 'ব্যবহার', path: '/usage', icon: 'pi pi-check-square' },
   { name: 'আমাদের সম্পর্কে', path: '/about', icon: 'pi pi-info-circle' },
 ];
 
