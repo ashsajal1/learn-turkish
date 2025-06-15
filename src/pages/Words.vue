@@ -113,10 +113,9 @@
             <div class="flex items-center gap-2 group">
               <span class="font-semibold text-primary-600 dark:text-primary-400">{{ data.word }}</span>
               <Button 
-                v-if="data.pronunciation"
                 icon="pi pi-volume-up" 
                 class="p-button-text p-button-sm p-button-rounded p-button-secondary" 
-                @click="playAudio(data.pronunciation)"
+                @click="playAudio(data.word)"
                 v-tooltip.top="'Listen pronunciation'"
               />
             </div>
@@ -191,15 +190,11 @@ import Dropdown from 'primevue/dropdown';
 import Tag from 'primevue/tag';
 import Button from 'primevue/button';
 import ProgressSpinner from 'primevue/progressspinner';
+import { useTurkishSpeakerStore } from '../stores/turkishSpeaker';
 
+const turkishSpeaker = useTurkishSpeakerStore();
 const toast = useToast();
 const loading = ref(false);
-
-// Add some mock pronunciation URLs for demonstration
-const allWords = words.map(word => ({
-  ...word,
-  pronunciation: `https://example.com/audio/${word.id}.mp3` // This would be your actual audio file path
-}));
 
 // Filtering state
 const selectedPart = ref('');
@@ -211,22 +206,9 @@ const resetFilters = () => {
   search.value = '';
 };
 
-// Play audio for word pronunciation
-const playAudio = (audioUrl: string) => {
-  try {
-    const audio = new Audio(audioUrl);
-    audio.play().catch(error => {
-      console.error('Error playing audio:', error);
-      toast.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Could not play audio',
-        life: 3000
-      });
-    });
-  } catch (error) {
-    console.error('Error initializing audio:', error);
-  }
+// Play audio for word pronunciation (now uses Turkish speaker store)
+const playAudio = (word: string) => {
+  turkishSpeaker.speak(word);
 };
 
 // Copy text to clipboard
@@ -252,7 +234,7 @@ const copyToClipboard = async (text: string) => {
   
 // 🧠 Unique parts of speech with labels
 const partsOfSpeechTypes = computed(() => {
-  const types = new Set(allWords.map((w) => w.partsOfSpeech));
+  const types = new Set(words.map((w) => w.partsOfSpeech));
   return [
     { name: 'All Types', value: '' },
     ...Array.from(types).map(type => ({
@@ -277,7 +259,7 @@ const getSeverity = (type: string) => {
   
 // 🔍 Filtered list
 const filteredWords = computed(() => {
-  return allWords
+  return words
     .filter((w) => selectedPart.value ? w.partsOfSpeech === selectedPart.value : true)
     .filter((w) => {
       const term = search.value.toLowerCase();
