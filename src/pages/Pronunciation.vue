@@ -89,8 +89,9 @@
               <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                 'চ' এর মতো, যেমন "চা"-এর 'চ' <span class="block text-gray-500 dark:text-gray-400">Like 'ch' in "church"</span>
               </td>
-              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic">
+              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic flex items-center gap-2">
                 çay <span class="text-gray-500 dark:text-gray-400">(চা)</span>
+                <button @click="speakTurkish('çay')" title="Pronounce" class="ml-2 text-lg">🔊</button>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">উচ্চারণ: চাই (chai)</div>
               </td>
             </tr>
@@ -101,8 +102,9 @@
               <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                 সাধারণত নীরব। পূর্ববর্তী স্বরধ্বনিটি দীর্ঘ করে। <span class="block text-gray-500 dark:text-gray-400">The "soft g" is usually silent. It lengthens the preceding vowel.</span>
               </td>
-              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic">
+              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic flex items-center gap-2">
                 dağ <span class="text-gray-500 dark:text-gray-400">(পাহাড়)</span>
+                <button @click="speakTurkish('dağ')" title="Pronounce" class="ml-2 text-lg">🔊</button>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">উচ্চারণ: দাআ (daa)</div>
               </td>
             </tr>
@@ -113,8 +115,9 @@
               <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                 'সোফা' শব্দের 'আ' বা 'রেডিয়াম' শব্দের 'আ' এর মতো। এটি একটি অলস স্বরধ্বনি। <span class="block text-gray-500 dark:text-gray-400">Like the 'a' in "sofa" or the 'u' in "radium". It's an unstressed vowel sound.</span>
               </td>
-              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic">
+              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic flex items-center gap-2">
                 ılık <span class="text-gray-500 dark:text-gray-400">(উষ্ণ)</span>
+                <button @click="speakTurkish('ılık')" title="Pronounce" class="ml-2 text-lg">🔊</button>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">উচ্চারণ: ইলুখ (ılık)</div>
               </td>
             </tr>
@@ -125,8 +128,9 @@
               <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                 'দেখা' শব্দের 'ী' এর মতো <span class="block text-gray-500 dark:text-gray-400">Like 'ee' in "see"</span>
               </td>
-              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic">
+              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic flex items-center gap-2">
                 isim <span class="text-gray-500 dark:text-gray-400">(নাম)</span>
+                <button @click="speakTurkish('isim')" title="Pronounce" class="ml-2 text-lg">🔊</button>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">উচ্চারণ: ইসিম (isim)</div>
               </td>
             </tr>
@@ -137,8 +141,9 @@
               <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                 জার্মান 'ö' বা "burn" শব্দের 'u' এর মতো। 'ও' বলার মতো ঠোঁট গোল করে 'এ' উচ্চারণ করুন। <span class="block text-gray-500 dark:text-gray-400">Like the German 'ö' or the 'u' in "burn". Round your lips as if to say "o" but pronounce "e".</span>
               </td>
-              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic">
+              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic flex items-center gap-2">
                 göz <span class="text-gray-500 dark:text-gray-400">(চোখ)</span>
+                <button @click="speakTurkish('göz')" title="Pronounce" class="ml-2 text-lg">🔊</button>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">উচ্চারণ: গ্যোজ (göz)</div>
               </td>
             </tr>
@@ -149,8 +154,9 @@
               <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                 'শ' এর মতো, যেমন "শাপলা"-এর 'শ' <span class="block text-gray-500 dark:text-gray-400">Like 'sh' in "shoe"</span>
               </td>
-              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic">
+              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic flex items-center gap-2">
                 şapka <span class="text-gray-500 dark:text-gray-400">(টুপি)</span>
+                <button @click="speakTurkish('şapka')" title="Pronounce" class="ml-2 text-lg">🔊</button>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">উচ্চারণ: শাপকা (şapka)</div>
               </td>
             </tr>
@@ -161,8 +167,9 @@
               <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                 জার্মান 'ü' এর মতো। 'উ' বলার মতো ঠোঁট গোল করে 'ঈ' উচ্চারণ করুন। <span class="block text-gray-500 dark:text-gray-400">Like the German 'ü'. Round your lips as if to say "oo" but pronounce "ee".</span>
               </td>
-              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic">
+              <td class="px-6 py-4 text-sm text-blue-600 dark:text-blue-400 italic flex items-center gap-2">
                 üzüm <span class="text-gray-500 dark:text-gray-400">(আঙ্গুর)</span>
+                <button @click="speakTurkish('üzüm')" title="Pronounce" class="ml-2 text-lg">🔊</button>
                 <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">উচ্চারণ: উজ্যুম (üzüm)</div>
               </td>
             </tr>
@@ -301,4 +308,20 @@
 // This component uses Tailwind CSS for styling with dark mode support
 // Dark mode is automatically applied based on the user's system preference
 // or can be toggled if you have a theme switcher in your app
+
+function speakTurkish(text) {
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    const utter = new window.SpeechSynthesisUtterance(text);
+    // Try to select a Turkish voice
+    const voices = window.speechSynthesis.getVoices();
+    const trVoice = voices.find(v => v.lang && v.lang.startsWith('tr'));
+    if (trVoice) {
+      utter.voice = trVoice;
+    }
+    utter.lang = 'tr-TR';
+    window.speechSynthesis.speak(utter);
+  } else {
+    alert('Speech synthesis not supported in this browser.');
+  }
+}
 </script>
