@@ -11,8 +11,17 @@
 <script setup>
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
+import { onMounted } from 'vue';
+import { useTurkishSpeakerStore } from './stores/turkishSpeaker';
 
 import { router } from "./router";
+
+// Initialize Turkish speaker store on app load
+const turkishSpeaker = useTurkishSpeakerStore();
+onMounted(() => {
+  // Preload Turkish voices for faster use in any component
+  window.speechSynthesis.getVoices();
+});
 
 router.afterEach((to) => {
   // Update the page title
