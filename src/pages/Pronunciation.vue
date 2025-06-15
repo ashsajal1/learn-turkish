@@ -5,17 +5,56 @@
         তুর্কি উচ্চারণ গাইড <span class="text-xl text-gray-500 dark:text-gray-400">/ Turkish Pronunciation Guide</span>
       </h1>
       
-      <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-        তুর্কি ভাষা একটি ধ্বনিগত ভাষা, যার অর্থ শব্দগুলি যেভাবে লেখা হয় সেভাবেই উচ্চারিত হয়। 
-        প্রতিটি বর্ণ একটি নির্দিষ্ট শব্দের প্রতিনিধিত্ব করে। তবে, তুর্কি বর্ণমালায় কিছু বিশেষ অক্ষর রয়েছে 
-        যা ইংরেজি ভাষাভাষীদের কাছে অপরিচিত হতে পারে।
-      </p>
-      <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-        Turkish is a phonetic language, which means that words are pronounced as they are written. 
-        Each letter corresponds to a single sound. However, there are a few special characters in the 
-        Turkish alphabet that might be unfamiliar to English speakers.
-      </p>
+      <!-- Introduction Section -->
+      <div class="bg-emerald-50 dark:bg-emerald-900/20 p-6 rounded-lg border border-emerald-100 dark:border-emerald-800 mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+          তুর্কি বর্ণমালা পরিচিতি <span class="text-lg font-normal text-gray-500 dark:text-gray-400">/ Introduction to Turkish Alphabet</span>
+        </h2>
+        
+        <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+          তুর্কি ভাষায় লাতিন বর্ণমালা ব্যবহার করা হয়, তবে কিছু বিশেষ অক্ষর রয়েছে। বর্ণমালাটিতে মোট ২৯টি অক্ষর রয়েছে:
+        </p>
+        <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+          Turkish uses the Latin alphabet with some special characters. The alphabet consists of 29 letters:
+        </p>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">স্বরবর্ণ / Vowels (8):</h3>
+            <p class="text-blue-600 dark:text-blue-400 font-mono text-lg tracking-wide">
+              a, e, ı, i, o, ö, u, ü
+            </p>
+          </div>
+          <div>
+            <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-2">ব্যঞ্জনবর্ণ / Consonants (21):</h3>
+            <p class="text-blue-600 dark:text-blue-400 font-mono text-lg tracking-wide">
+              b, c, ç, d, f, g, ğ, h, j, k, l, m, n, p, r, s, ş, t, v, y, z
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audio Guide Section -->
+      <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-lg border border-blue-100 dark:border-blue-800 mb-8">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
+          উচ্চারণ শেখার টিপস <span class="text-lg font-normal text-gray-500 dark:text-gray-400">/ Learning Tips</span>
+        </h2>
+        
+        <ul class="list-disc list-inside space-y-3 text-gray-700 dark:text-gray-300">
+          <li>তুর্কি ভাষা শেখার অ্যাপ্স যেমন Duolingo বা Busuu ব্যবহার করুন</li>
+          <li>নেটিভ স্পিকারদের ভিডিও দেখুন</li>
+          <li>তুর্কি গান শুনুন</li>
+          <li>উচ্চারণ অনুশীলনের জন্য Google Translate ব্যবহার করুন</li>
+        </ul>
+        <ul class="list-disc list-inside space-y-3 text-gray-700 dark:text-gray-300 mt-3">
+          <li>Use language learning apps like Duolingo or Busuu</li>
+          <li>Watch videos of native speakers</li>
+          <li>Listen to Turkish songs</li>
+          <li>Use Google Translate for pronunciation practice</li>
+        </ul>
+      </div>
+
+      <!-- Special Characters Section -->
       <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mt-8 mb-4 pb-2 border-b border-emerald-400">
         বিশেষ অক্ষরসমূহ <span class="text-lg font-normal text-gray-500 dark:text-gray-400">/ Special Characters</span>
       </h2>
@@ -131,17 +170,128 @@
         </table>
       </div>
 
+      <!-- Common Pronunciation Rules -->
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mt-8 mb-4 pb-2 border-b border-emerald-400">
+        সাধারণ উচ্চারণ নিয়ম <span class="text-lg font-normal text-gray-500 dark:text-gray-400">/ Common Pronunciation Rules</span>
+      </h2>
+
+      <div class="space-y-6 mb-8">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">১. অক্ষর উচ্চারণ / Letter Pronunciation</h3>
+          <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+            <li>প্রতিটি অক্ষর সবসময় একই ভাবে উচ্চারিত হয়</li>
+            <li>নীরব অক্ষর নেই (ğ ছাড়া)</li>
+            <li>দ্বিগুণ ব্যঞ্জনবর্ণ নেই</li>
+          </ul>
+          <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mt-2">
+            <li>Each letter is always pronounced the same way</li>
+            <li>There are no silent letters (except ğ)</li>
+            <li>No double consonant sounds</li>
+          </ul>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">২. জোর / Stress</h3>
+          <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
+            <li>সাধারণত শেষ শব্দাংশে জোর দেওয়া হয়</li>
+            <li>কিছু প্রত্যয় জোর গ্রহণ করে না</li>
+          </ul>
+          <ul class="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mt-2">
+            <li>Stress usually falls on the last syllable</li>
+            <li>Some suffixes don't take stress</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Practice Words -->
+      <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mt-8 mb-4 pb-2 border-b border-emerald-400">
+        অনুশীলনের শব্দ <span class="text-lg font-normal text-gray-500 dark:text-gray-400">/ Practice Words</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">সহজ শব্দ / Easy Words</h3>
+          <ul class="space-y-3">
+            <li class="text-gray-700 dark:text-gray-300">
+              <span class="text-blue-600 dark:text-blue-400 font-medium">anne</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm"> - মা / mother</span>
+              <div class="text-xs text-gray-500 dark:text-gray-400">উচ্চারণ: আন-নে</div>
+            </li>
+            <li class="text-gray-700 dark:text-gray-300">
+              <span class="text-blue-600 dark:text-blue-400 font-medium">baba</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm"> - বাবা / father</span>
+              <div class="text-xs text-gray-500 dark:text-gray-400">উচ্চারণ: বা-বা</div>
+            </li>
+            <li class="text-gray-700 dark:text-gray-300">
+              <span class="text-blue-600 dark:text-blue-400 font-medium">su</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm"> - পানি / water</span>
+              <div class="text-xs text-gray-500 dark:text-gray-400">উচ্চারণ: সু</div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+          <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">চ্যালেঞ্জিং শব্দ / Challenging Words</h3>
+          <ul class="space-y-3">
+            <li class="text-gray-700 dark:text-gray-300">
+              <span class="text-blue-600 dark:text-blue-400 font-medium">öğretmen</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm"> - শিক্ষক / teacher</span>
+              <div class="text-xs text-gray-500 dark:text-gray-400">উচ্চারণ: ও-রেত-মেন</div>
+            </li>
+            <li class="text-gray-700 dark:text-gray-300">
+              <span class="text-blue-600 dark:text-blue-400 font-medium">günaydın</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm"> - শুভ সকাল / good morning</span>
+              <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">উচ্চারণ: গুন-আই-দুন</div>
+            </li>
+            <li class="text-gray-700 dark:text-gray-300">
+              <span class="text-blue-600 dark:text-blue-400 font-medium">teşekkürler</span>
+              <span class="text-gray-500 dark:text-gray-400 text-sm"> - ধন্যবাদ / thank you</span>
+              <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">উচ্চারণ: তে-শেক-কুর-লের</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Vowel Harmony Section - More detailed explanation -->
       <h2 class="text-2xl font-semibold text-gray-800 dark:text-gray-200 mt-8 mb-4 pb-2 border-b border-emerald-400">
         স্বরসঙ্গতি <span class="text-lg font-normal text-gray-500 dark:text-gray-400">/ Vowel Harmony</span>
       </h2>
       
       <div class="bg-emerald-50 dark:bg-emerald-900/20 p-6 rounded-lg border border-emerald-100 dark:border-emerald-800 mb-8">
+        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">স্বরবর্ণের শ্রেণী / Vowel Classes</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+          <div>
+            <h4 class="font-medium text-gray-800 dark:text-gray-200 mb-2">পিছনের স্বরবর্ণ / Back Vowels:</h4>
+            <p class="text-blue-600 dark:text-blue-400 font-mono text-lg tracking-wide">
+              a, ı, o, u
+            </p>
+          </div>
+          <div>
+            <h4 class="font-medium text-gray-800 dark:text-gray-200 mb-2">সামনের স্বরবর্ণ / Front Vowels:</h4>
+            <p class="text-blue-600 dark:text-blue-400 font-mono text-lg tracking-wide">
+              e, i, ö, ü
+            </p>
+          </div>
+        </div>
+
         <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-          তুর্কি ভাষার সবচেয়ে গুরুত্বপূর্ণ বৈশিষ্ট্যগুলির মধ্যে একটি হল স্বরসঙ্গতি। এর অর্থ হল একটি শব্দের মধ্যে থাকা স্বরধ্বনিগুলি একই শ্রেণীর (সামনের বা পিছনের স্বরধ্বনি) হতে হবে। এটি প্রভাবিত করে কিভাবে প্রত্যয়গুলি শব্দের সাথে যুক্ত হয়। যদিও প্রথম দিন থেকেই এটিতে দক্ষ হওয়ার প্রয়োজন নেই, তবে এটি সম্পর্কে সচেতন থাকা ভাষার গঠন বোঝার ক্ষেত্রে সহায়ক হবে।
+          স্বরসঙ্গতি তুর্কি ভাষার একটি মৌলিক বৈশিষ্ট্য। এর মানে হল একটি শব্দের মধ্যে থাকা স্বরধ্বনিগুলি একই শ্রেণীর হতে হবে। উদাহরণস্বরূপ:
         </p>
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
-          One of the most important features of Turkish is vowel harmony. This means that vowels within a word must belong to the same class (either front or back vowels). This affects how suffixes are added to words. While you don't need to master this from day one, being aware of it will help you understand the structure of the language.
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          Vowel harmony is a fundamental feature of Turkish. It means that vowels within a word must be from the same class. For example:
         </p>
+
+        <ul class="space-y-3 mb-4">
+          <li class="text-gray-700 dark:text-gray-300">
+            <span class="text-blue-600 dark:text-blue-400 font-medium">kitap</span> (বই / book)
+            <div class="text-sm text-gray-500 dark:text-gray-400">স্বরবর্ণ: i-a (সামনে-পিছনে মিশ্রণ অনুমোদিত)</div>
+          </li>
+          <li class="text-gray-700 dark:text-gray-300">
+            <span class="text-blue-600 dark:text-blue-400 font-medium">güzel</span> (সুন্দর / beautiful)
+            <div class="text-sm text-gray-500 dark:text-gray-400">স্বরবর্ণ: ü-e (উভয়ই সামনের স্বরবর্ণ)</div>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
