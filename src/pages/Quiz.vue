@@ -1,11 +1,5 @@
 <template>
   <div class="quiz-container p-4 md:p-6 max-w-4xl mx-auto">
-    <!-- Quiz Header -->
-    <div class="text-center mb-8">
-      <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-2">Turkish Language Quiz</h1>
-      <p class="text-gray-600 dark:text-gray-400">Test your Turkish vocabulary knowledge</p>
-    </div>
-
     <!-- Quiz Content -->
     <div v-if="!quizStarted" class="text-center">
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 mb-6">
