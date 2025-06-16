@@ -110,14 +110,33 @@
         
         <Column field="word" header="Word" sortable style="min-width: 180px">
           <template #body="{ data }">
-            <div class="flex items-center gap-2 group">
-              <span class="font-semibold text-primary-600 dark:text-primary-400">{{ data.word }}</span>
-              <Button 
-                icon="pi pi-volume-up" 
-                class="p-button-text p-button-sm p-button-rounded p-button-secondary" 
-                @click="playAudio(data.word)"
-                v-tooltip.top="'Listen pronunciation'"
-              />
+            <div class="flex flex-col gap-1">
+              <div class="flex items-center gap-2 group">
+                <span class="font-semibold text-primary-600 dark:text-primary-400">{{ data.word }}</span>
+                <Button 
+                  icon="pi pi-volume-up" 
+                  class="p-button-text p-button-sm p-button-rounded p-button-secondary" 
+                  @click="playAudio(data.word)"
+                  v-tooltip.top="'Listen pronunciation'"
+                />
+                <Button
+                  v-if="speechSupported"
+                  :icon="isListening && speakingWord === data.word ? 'pi pi-spin pi-microphone' : 'pi pi-microphone'"
+                  class="p-button-text p-button-sm p-button-rounded p-button-help"
+                  @click="speakAndCompare(data.word)"
+                  :disabled="isListening && speakingWord === data.word"
+                  v-tooltip.top="'Speak & Compare'"
+                />
+              </div>
+              <div v-if="isListening && speakingWord === data.word" class="text-xs text-blue-600 dark:text-blue-300 mt-1">Listening...</div>
+              <div v-else-if="lastSpokenResult && lastSpokenResult.word === data.word" class="text-xs mt-1" :class="lastSpokenResult.success ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'">
+                <template v-if="lastSpokenResult.success">
+                  <i class="pi pi-check-circle mr-1"></i>Correct! You said: "{{ lastSpokenResult.transcript }}"
+                </template>
+                <template v-else>
+                  <i class="pi pi-times-circle mr-1"></i>Incorrect. You said: "{{ lastSpokenResult.transcript }}"
+                </template>
+              </div>
             </div>
           </template>
         </Column>
@@ -174,6 +193,8 @@
             <ProgressSpinner style="width: 50px; height: 50px" />
           </div>
         </template>
+        
+        <!-- Removed invalid global body slot. Use per-column body slots instead. -->
       </DataTable>
     </div>
   </div>
@@ -270,6 +291,77 @@ const filteredWords = computed(() => {
     })
     .sort((a, b) => Number(a.id) - Number(b.id));
 });
+
+// --- Speech Recognition Support ---
+const speechSupported = typeof window !== 'undefined' && (
+  'SpeechRecognition' in window || 'webkitSpeechRecognition' in window
+);
+let recognition: any = null;
+if (speechSupported) {
+  const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.lang = 'tr-TR';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+}
+const isListening = ref(false);
+const speakingWord = ref('');
+const lastSpokenResult = ref<{ word: string; transcript: string; success: boolean } | null>(null);
+
+const speakAndCompare = (word: string) => {
+  if (!speechSupported || !recognition) {
+    toast.add({
+      severity: 'warn',
+      summary: 'Not supported',
+      detail: 'Speech recognition is not supported in your browser.',
+      life: 3000
+    });
+    return;
+  }
+  speakingWord.value = word;
+  isListening.value = true;
+  lastSpokenResult.value = null;
+  recognition.start();
+  recognition.onresult = (event: any) => {
+    const transcript = event.results[0][0].transcript.trim();
+    isListening.value = false;
+    speakingWord.value = '';
+    // Compare ignoring diacritics and case
+    const normalize = (s: string) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+    const success = normalize(transcript) === normalize(word);
+    lastSpokenResult.value = { word, transcript, success };
+    if (success) {
+      toast.add({
+        severity: 'success',
+        summary: 'Correct!',
+        detail: `You pronounced "${word}" correctly!`,
+        life: 2500
+      });
+    } else {
+      toast.add({
+        severity: 'error',
+        summary: 'Try Again',
+        detail: `You said: "${transcript}". Correct: "${word}"`,
+        life: 3500
+      });
+    }
+  };
+  recognition.onerror = (event: any) => {
+    isListening.value = false;
+    speakingWord.value = '';
+    lastSpokenResult.value = null;
+    toast.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: event.error || 'Something went wrong.',
+      life: 3000
+    });
+  };
+  recognition.onend = () => {
+    isListening.value = false;
+    speakingWord.value = '';
+  };
+};
 </script>
 
 <style scoped>
