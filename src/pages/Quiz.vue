@@ -116,13 +116,20 @@
           <div class="text-2xl font-bold mb-6">
             "<span class="text-primary-600 dark:text-primary-400">{{ currentQuestion.translation }}</span>" শব্দের তুর্কি উচ্চারণ করুন:
           </div>
-          <div class="mb-4">
+          <div class="mb-4 flex flex-col items-center gap-2">
             <Button 
               :label="isListening ? 'শোনা হচ্ছে...' : 'উচ্চারণ শুরু করুন'"
               icon="pi pi-microphone"
               :disabled="isListening || selectedAnswer !== null"
               @click="startListening"
               class="p-button-lg"
+            />
+            <Button
+              v-if="selectedAnswer === null && !isListening"
+              label="এটি বাদ দিন"
+              icon="pi pi-forward"
+              class="p-button-secondary p-button-text mt-2"
+              @click="nextQuestion"
             />
           </div>
           <div v-if="spokenText" class="mb-2 text-lg">
