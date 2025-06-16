@@ -110,6 +110,25 @@
             />
           </div>
         </div>
+
+        <!-- Speaking Question -->
+        <div v-else-if="currentQuestion.type === 'speaking'" class="text-center">
+          <div class="text-2xl font-bold mb-6">
+            "<span class="text-primary-600 dark:text-primary-400">{{ currentQuestion.translation }}</span>" শব্দের তুর্কি উচ্চারণ করুন:
+          </div>
+          <div class="mb-4">
+            <Button 
+              :label="isListening ? 'শোনা হচ্ছে...' : 'উচ্চারণ শুরু করুন'"
+              icon="pi pi-microphone"
+              :disabled="isListening || selectedAnswer !== null"
+              @click="startListening"
+              class="p-button-lg"
+            />
+          </div>
+          <div v-if="spokenText" class="mb-2 text-lg">
+            <span class="font-semibold">আপনার উচ্চারণ:</span> {{ spokenText }}
+          </div>
+        </div>
       </div>
 
       <!-- Feedback & Next Button -->
@@ -186,6 +205,21 @@ import { useToast } from 'primevue/usetoast';
 
 const toast = useToast();
 
+// --- Speech Recognition Support ---
+const speechSupported = typeof window !== 'undefined' && (
+  'SpeechRecognition' in window || 'webkitSpeechRecognition' in window
+);
+let recognition: any = null;
+if (speechSupported) {
+  const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.lang = 'tr-TR';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+}
+const isListening = ref(false);
+const spokenText = ref('');
+
 // Quiz state
 const quizStarted = ref(false);
 const currentQuestionIndex = ref(0);
@@ -199,7 +233,7 @@ const questionCount = 10; // Number of questions in the quiz
 const questions = ref<Array<{
   word: string;
   translation: string;
-  type: 'translation' | 'reverse-translation' | 'listening';
+  type: 'translation' | 'reverse-translation' | 'listening' | 'speaking';
   options: string[];
   correctAnswer: string;
   userAnswer?: string;
@@ -240,16 +274,12 @@ const startQuiz = () => {
 
 // Generate random questions
 const generateQuestions = () => {
-  const questionTypes: Array<'translation' | 'reverse-translation' | 'listening'> = 
-    ['translation', 'reverse-translation', 'listening'];
-  
+  const baseTypes = ['translation', 'reverse-translation', 'listening'] as const;
+  const questionTypes = speechSupported ? [...baseTypes, 'speaking'] as const : baseTypes;
   // Shuffle words and take the first questionCount
   const shuffledWords = [...words].sort(() => 0.5 - Math.random()).slice(0, questionCount);
-  
   questions.value = shuffledWords.map((word, index) => {
-    // Determine question type (distribute evenly)
-    const type = questionTypes[index % questionTypes.length];
-    
+    const type: 'translation' | 'reverse-translation' | 'listening' | 'speaking' = questionTypes[index % questionTypes.length];
     if (type === 'reverse-translation') {
       // For reverse translation (Bengali to Turkish)
       // Get 3 random incorrect Turkish words
@@ -270,6 +300,15 @@ const generateQuestions = () => {
         type,
         options,
         correctAnswer: word.word  // The correct Turkish word
+      };
+    } else if (type === 'speaking') {
+      // Speaking test: user must say the Turkish word for the Bengali translation
+      return {
+        word: word.word,
+        translation: word.translation,
+        type,
+        options: [], // No options, user must speak
+        correctAnswer: word.word
       };
     } else {
       // For regular translation and listening questions (Turkish to Bengali)
@@ -294,6 +333,47 @@ const generateQuestions = () => {
       };
     }
   });
+};
+
+// --- Speech Recognition Handler ---
+const startListening = () => {
+  if (!speechSupported || !recognition) return;
+  isListening.value = true;
+  spokenText.value = '';
+  recognition.start();
+  recognition.onresult = (event: any) => {
+    const transcript = event.results[0][0].transcript.trim();
+    spokenText.value = transcript;
+    isListening.value = false;
+    checkSpokenAnswer(transcript);
+  };
+  recognition.onerror = (event: any) => {
+    isListening.value = false;
+    toast.add({
+      severity: 'error',
+      summary: 'শোনার সময় ত্রুটি',
+      detail: event.error || 'কিছু ভুল হয়েছে।',
+      life: 3000
+    });
+  };
+  recognition.onend = () => {
+    isListening.value = false;
+  };
+};
+
+const checkSpokenAnswer = (transcript: string) => {
+  selectedAnswer.value = transcript;
+  // Accept answer if it matches Turkish word (case-insensitive, ignore diacritics)
+  const normalize = (s: string) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+  isCorrect.value = normalize(transcript) === normalize(currentQuestion.value.correctAnswer);
+  if (isCorrect.value) {
+    score.value++;
+  }
+  questions.value[currentQuestionIndex.value] = {
+    ...currentQuestion.value,
+    userAnswer: transcript,
+    isCorrect: isCorrect.value
+  };
 };
 
 // Check if the selected answer is correct
