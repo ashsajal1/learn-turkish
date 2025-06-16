@@ -2,9 +2,9 @@
   <div class="p-4 md:p-6 max-w-6xl mx-auto">
     <!-- Hero Section -->
     <div class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-3">Turkish Word Explorer</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-3">তুর্কি শব্দ এক্সপ্লোরার</h1>
       <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Discover and learn Turkish words with translations, pronunciations, and examples.
+        অনুবাদ, উচ্চারণ ও উদাহরণসহ তুর্কি শব্দ আবিষ্কার ও শিখুন।
       </p>
     </div>
     
@@ -12,7 +12,7 @@
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 mb-8 border border-gray-100 dark:border-gray-700">
       <div class="flex flex-col md:flex-row gap-4 items-end">
         <div class="w-full md:w-56">
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Filter by Type</label>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ধরন অনুযায়ী ফিল্টার করুন</label>
           <Dropdown 
             v-model="selectedPart" 
             :options="partsOfSpeechTypes" 
@@ -28,7 +28,7 @@
         </div>
         
         <div class="flex-1 w-full">
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Search Words</label>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">শব্দ অনুসন্ধান করুন</label>
           <div class="relative w-full">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
               <i class="pi pi-search text-gray-400" />
@@ -37,7 +37,7 @@
               id="search" 
               v-model="search" 
               class="w-full pl-10 pr-3 py-2 rounded border border-gray-300 dark:border-gray-600 focus:border-primary-500 focus:ring focus:ring-primary-200 dark:bg-gray-900 dark:text-gray-100 transition"
-              placeholder="Search by word or translation..."
+              placeholder="শব্দ বা অনুবাদ দিয়ে অনুসন্ধান করুন..."
               autocomplete="off"
             />
           </div>
@@ -45,7 +45,7 @@
         
         <div class="w-full md:w-auto">
           <Button 
-            label="Reset Filters" 
+            label="ফিল্টার রিসেট করুন" 
             icon="pi pi-refresh" 
             class="p-button-outlined w-full"
             @click="resetFilters"
@@ -57,7 +57,7 @@
       <div v-if="selectedPart || search" class="flex flex-wrap gap-2 mt-3">
         <Tag 
           v-if="selectedPart" 
-          :value="'Type: ' + partsOfSpeechTypes.find(t => t.value === selectedPart)?.name" 
+          :value="'ধরন: ' + partsOfSpeechTypes.find(t => t.value === selectedPart)?.name" 
           icon="pi pi-tag" 
           severity="info"
           @click="selectedPart = ''"
@@ -65,7 +65,7 @@
         />
         <Tag 
           v-if="search" 
-          :value="'Search: ' + search" 
+          :value="'অনুসন্ধান: ' + search" 
           icon="pi pi-search" 
           severity="success"
           @click="search = ''"
@@ -96,9 +96,9 @@
       >
         <template #header>
           <div class="flex justify-between items-center p-4 border-b border-gray-100 dark:border-gray-700">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Word List</h2>
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">শব্দ তালিকা</h2>
             <div class="text-sm text-gray-500 dark:text-gray-400">
-              {{ filteredWords.length }} {{ filteredWords.length === 1 ? 'word' : 'words' }} found
+              {{ filteredWords.length }} {{ filteredWords.length === 1 ? 'শব্দ' : 'শব্দ' }} পাওয়া গেছে
             </div>
           </div>
         </template>
@@ -112,7 +112,7 @@
           </template>
         </Column> -->
         
-        <Column field="word" header="Word" sortable style="min-width: 180px">
+        <Column field="word" header="শব্দ" sortable style="min-width: 180px">
           <template #body="{ data }">
             <div class="flex flex-col gap-1">
               <div class="flex items-center gap-2 group">
@@ -145,7 +145,7 @@
           </template>
         </Column>
         
-        <Column field="translation" header="Translation" sortable>
+        <Column field="translation" header="অনুবাদ" sortable>
           <template #body="{ data }">
             <div class="flex items-center justify-between">
               <span>{{ data.translation }}</span>
@@ -159,7 +159,7 @@
           </template>
         </Column>
         
-        <Column field="partsOfSpeech" header="Part of Speech" sortable style="width: 160px">
+        <Column field="partsOfSpeech" header="শব্দের ধরন" sortable style="width: 160px">
           <template #body="{ data }">
             <Tag 
               :value="data.partsOfSpeech" 
@@ -178,13 +178,13 @@
               alt="No results" 
               class="w-40 h-40 mb-4 opacity-50"
             />
-            <h3 class="text-lg font-medium text-gray-700 dark:text-gray-200 mb-1">No words found</h3>
+            <h3 class="text-lg font-medium text-gray-700 dark:text-gray-200 mb-1">কোনো শব্দ পাওয়া যায়নি</h3>
             <p class="text-gray-500 dark:text-gray-400 mb-4">
-              {{ search || selectedPart ? 'Try adjusting your search or filter' : 'No words available' }}
+              {{ search || selectedPart ? 'অনুগ্রহ করে আপনার অনুসন্ধান বা ফিল্টার পরিবর্তন করুন' : 'কোনো শব্দ নেই' }}
             </p>
             <Button 
               v-if="search || selectedPart"
-              label="Clear filters" 
+              label="ফিল্টার ক্লিয়ার করুন" 
               icon="pi pi-times" 
               class="p-button-text"
               @click="resetFilters"
