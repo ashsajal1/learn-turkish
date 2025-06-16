@@ -29,15 +29,18 @@
         
         <div class="flex-1 w-full">
           <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Search Words</label>
-          <span class="p-input-icon-left w-full">
-            <i class="pi pi-search text-gray-400" />
+          <div class="relative w-full">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="pi pi-search text-gray-400" />
+            </span>
             <InputText 
               id="search" 
               v-model="search" 
-              class="w-full"
+              class="w-full pl-10 pr-3 py-2 rounded border border-gray-300 dark:border-gray-600 focus:border-primary-500 focus:ring focus:ring-primary-200 dark:bg-gray-900 dark:text-gray-100 transition"
               placeholder="Search by word or translation..."
+              autocomplete="off"
             />
-          </span>
+          </div>
         </div>
         
         <div class="w-full md:w-auto">
