@@ -1,9 +1,9 @@
 <template>
   <div class="p-4 md:p-6 max-w-6xl mx-auto">
     <div class="text-center mb-8">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-3">Turkish Parts of Speech Usage</h1>
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-3">তুর্কি বাক্যের ব্যবহার</h1>
       <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-        Explore example sentences for all types of Turkish parts of speech. Filter by type or search for a word ("ara").
+        এখানে তুর্কি ভাষার সকল প্রকারের বাক্যের উদাহরণ দেখুন। ধরন অনুযায়ী ফিল্টার করুন বা শব্দ দিয়ে অনুসন্ধান করুন ("ara").
       </p>
     </div>
 
@@ -11,7 +11,7 @@
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-4 mb-8 border border-gray-100 dark:border-gray-700">
       <div class="flex flex-col md:flex-row gap-4 items-end">
         <div class="w-full md:w-56">
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Filter by Type</label>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ধরন অনুযায়ী ফিল্টার করুন</label>
           <Dropdown 
             v-model="selectedPart" 
             :options="partsOfSpeechTypes" 
@@ -22,19 +22,19 @@
           />
         </div>
         <div class="flex-1 w-full">
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Search ("ara")</label>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">অনুসন্ধান ("ara")</label>
           <div class="flex items-center w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md px-2">
             <i class="pi pi-search text-gray-400 mr-2" />
             <InputText 
               v-model="search" 
               class="w-full border-0 focus:ring-0 bg-transparent"
-              placeholder="Search Turkish or Bengali..."
+              placeholder="তুর্কি বা বাংলা লিখে অনুসন্ধান করুন..."
             />
           </div>
         </div>
         <div class="w-full md:w-auto">
           <Button 
-            label="Reset Filters" 
+            label="ফিল্টার রিসেট করুন" 
             icon="pi pi-refresh" 
             class="p-button-outlined w-full"
             @click="resetFilters"
@@ -51,48 +51,48 @@
         :rows="10"
         :rowsPerPageOptions="[10,25,50]"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} usages"
+        currentPageReportTemplate="{first} থেকে {last} পর্যন্ত মোট {totalRecords}টি বাক্য দেখানো হচ্ছে"
         class="p-datatable-sm"
         responsiveLayout="scroll"
         stripedRows
       >
         <template #header>
           <div class="flex justify-between items-center p-4 border-b border-gray-100 dark:border-gray-700">
-            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Usage Examples</h2>
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">ব্যবহারের উদাহরণ</h2>
             <div class="text-sm text-gray-500 dark:text-gray-400">
-              {{ filteredUsages.length }} {{ filteredUsages.length === 1 ? 'usage' : 'usages' }} found
+              {{ filteredUsages.length }} {{ filteredUsages.length === 1 ? 'বাক্য' : 'বাক্যসমূহ' }} পাওয়া গেছে
             </div>
           </div>
         </template>
-        <Column field="type" header="Type" style="width: 120px">
+        <Column field="type" header="ধরন" style="width: 120px">
           <template #body="{ data }">
             <Tag :value="data.type" :severity="getSeverity(data.type)" />
           </template>
         </Column>
-        <Column field="turkish" header="Turkish" style="min-width: 180px">
+        <Column field="turkish" header="তুর্কি" style="min-width: 180px">
           <template #body="{ data }">
             <span class="font-semibold text-primary-600 dark:text-primary-400">{{ data.turkish }}</span>
           </template>
         </Column>
-        <Column field="bengali" header="Bengali" style="min-width: 180px">
+        <Column field="bengali" header="বাংলা" style="min-width: 180px">
           <template #body="{ data }">
             <span>{{ data.bengali }}</span>
           </template>
         </Column>
-        <Column field="example" header="Example Sentence" style="min-width: 260px">
+        <Column field="example" header="উদাহরণ বাক্য" style="min-width: 260px">
           <template #body="{ data }">
             <span>{{ data.example }}</span>
           </template>
         </Column>
         <template #empty>
           <div class="flex flex-col items-center justify-center p-8 text-center">
-            <h3 class="text-lg font-medium text-gray-700 dark:text-gray-200 mb-1">No usages found</h3>
+            <h3 class="text-lg font-medium text-gray-700 dark:text-gray-200 mb-1">কোনো বাক্য পাওয়া যায়নি</h3>
             <p class="text-gray-500 dark:text-gray-400 mb-4">
-              {{ search || selectedPart ? 'Try adjusting your search or filter' : 'No usages available' }}
+              {{ search || selectedPart ? 'অনুসন্ধান বা ফিল্টার পরিবর্তন করে দেখুন' : 'কোনো বাক্য নেই' }}
             </p>
             <Button 
               v-if="search || selectedPart"
-              label="Clear filters" 
+              label="ফিল্টার পরিষ্কার করুন" 
               icon="pi pi-times" 
               class="p-button-text"
               @click="resetFilters"
