@@ -39,6 +39,9 @@
               class="w-full pl-10 pr-3 py-2 rounded border border-gray-300 dark:border-gray-600 focus:border-primary-500 focus:ring focus:ring-primary-200 dark:bg-gray-900 dark:text-gray-100 transition"
               placeholder="শব্দ বা অনুবাদ দিয়ে অনুসন্ধান করুন..."
               autocomplete="off"
+              inputmode="text"
+              lang="tr"
+              @focus="setTurkishKeyboard"
             />
           </div>
         </div>
@@ -365,6 +368,15 @@ const speakAndCompare = (word: string) => {
     isListening.value = false;
     speakingWord.value = '';
   };
+};
+
+// Set Turkish keyboard layout if possible
+const setTurkishKeyboard = (e: Event) => {
+  const input = e.target as HTMLInputElement;
+  // Set lang attribute for virtual keyboard support
+  input.setAttribute('lang', 'tr');
+  // Optionally, set inputmode if needed
+  input.setAttribute('inputmode', 'text');
 };
 </script>
 
