@@ -29,8 +29,12 @@
           </span>
         </div>
         <ProgressBar 
-          :value="((currentQuestionIndex) / questionCount) * 100" 
-          :showValue="false"
+          :value="((currentQuestionIndex + 1) / questionCount) * 100" 
+          :showValue="true"
+          :displayValueTemplate="progressTemplate"
+          :pt="{
+            value: { style: { background: progressColor } }
+          }"
           class="h-2"
         />
       </div>
@@ -343,6 +347,19 @@ const getResultDescription = () => {
   if (percentage >= 40) return 'আপনি কিছু তুর্কি শব্দ জানেন। আরও চর্চা করুন!';
   return 'নতুন ভাষা শিখতে সময় লাগে। চর্চা চালিয়ে যান, উন্নতি হবে!';
 };
+
+// Progress bar value template
+const progressTemplate = () => {
+  return `${currentQuestionIndex.value + 1} / ${questionCount}`;
+};
+// Progress color based on progress
+const progressColor = computed(() => {
+  const percent = ((currentQuestionIndex.value + 1) / questionCount) * 100;
+  if (percent >= 80) return '#16a34a'; // green
+  if (percent >= 60) return '#facc15'; // yellow
+  if (percent >= 40) return '#f59e42'; // orange
+  return '#ef4444'; // red
+});
 
 // Initialize with a welcome message
 onMounted(() => {
