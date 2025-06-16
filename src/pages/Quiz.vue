@@ -3,12 +3,12 @@
     <!-- Quiz Content -->
     <div v-if="!quizStarted" class="text-center">
       <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 mb-6">
-        <h2 class="text-2xl font-semibold mb-4">Ready to test your Turkish?</h2>
+        <h2 class="text-2xl font-semibold mb-4">তুর্কি কুইজে অংশ নেবেন?</h2>
         <p class="mb-6 text-gray-600 dark:text-gray-300">
-          This quiz includes {{ questionCount }} questions with different types of challenges to help you learn.
+          এই কুইজে {{ questionCount }}টি প্রশ্ন রয়েছে, যা আপনাকে শেখার জন্য বিভিন্ন ধরণের চ্যালেঞ্জ দেবে।
         </p>
         <Button 
-          label="Start Quiz" 
+          label="কুইজ শুরু করুন" 
           icon="pi pi-play" 
           @click="startQuiz" 
           class="p-button-lg"
@@ -22,10 +22,10 @@
       <div class="mb-6">
         <div class="flex justify-between items-center mb-2">
           <span class="text-sm font-medium">
-            Question {{ currentQuestionIndex + 1 }} of {{ questionCount }}
+            প্রশ্ন {{ currentQuestionIndex + 1 }} / {{ questionCount }}
           </span>
           <span class="text-sm font-medium">
-            Score: {{ score }}/{{ questionCount }}
+            স্কোর: {{ score }}/{{ questionCount }}
           </span>
         </div>
         <ProgressBar 
@@ -40,7 +40,7 @@
         <!-- Translation Question -->
         <div v-if="currentQuestion.type === 'translation'" class="text-center">
           <div class="text-2xl font-bold mb-6">
-            What is the English translation of "{{ currentQuestion.word }}"?
+            "{{ currentQuestion.word }}" শব্দের বাংলা অনুবাদ কী?
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Button 
@@ -61,7 +61,7 @@
         <!-- Reverse Translation Question (Bengali to Turkish) -->
         <div v-else-if="currentQuestion.type === 'reverse-translation'" class="text-center">
           <div class="text-2xl font-bold mb-6">
-            What is the Turkish word for "<span class="text-primary-600 dark:text-primary-400">{{ currentQuestion.translation }}</span>"?
+            "<span class="text-primary-600 dark:text-primary-400">{{ currentQuestion.translation }}</span>" শব্দের তুর্কি কী?
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Button 
@@ -89,7 +89,7 @@
             />
           </div>
           <div class="text-xl mb-6">
-            Listen to the word and select its correct translation:
+            শব্দটি শুনুন এবং সঠিক বাংলা অনুবাদ নির্বাচন করুন:
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Button 
@@ -112,16 +112,16 @@
       <div class="text-center">
         <div v-if="isCorrect !== null" class="mb-4">
           <div v-if="isCorrect" class="text-green-600 dark:text-green-400 text-lg font-medium">
-            <i class="pi pi-check-circle mr-2"></i> Correct! Well done!
+            <i class="pi pi-check-circle mr-2"></i> সঠিক! দারুণ!
           </div>
           <div v-else class="text-red-600 dark:text-red-400 text-lg font-medium">
-            <i class="pi pi-times-circle mr-2"></i> Oops! The correct answer is "{{ currentQuestion.correctAnswer }}"
+            <i class="pi pi-times-circle mr-2"></i> ভুল! সঠিক উত্তর: "{{ currentQuestion.correctAnswer }}"
           </div>
         </div>
         
         <Button 
           v-if="selectedAnswer !== null"
-          :label="isLastQuestion ? 'Finish Quiz' : 'Next Question'"
+          :label="isLastQuestion ? 'কুইজ শেষ করুন' : 'পরবর্তী প্রশ্ন'"
           icon="pi pi-arrow-right"
           iconPos="right"
           @click="nextQuestion"
@@ -135,7 +135,7 @@
       v-model:visible="showResults" 
       :modal="true" 
       :style="{width: '450px'}" 
-      header="Quiz Completed!"
+      header="কুইজ সম্পন্ন!"
       :closable="false"
     >
       <div class="text-center py-4">
@@ -146,20 +146,20 @@
           {{ getResultMessage() }}
         </h3>
         <p class="text-xl font-semibold mb-4">
-          Your score: {{ score }}/{{ questionCount }}
+          আপনার স্কোর: {{ score }}/{{ questionCount }}
         </p>
         <p class="text-gray-600 dark:text-gray-300 mb-6">
           {{ getResultDescription() }}
         </p>
         <div class="flex justify-center gap-4">
           <Button 
-            label="Try Again" 
+            label="আবার চেষ্টা করুন" 
             icon="pi pi-refresh" 
             @click="restartQuiz" 
             class="p-button-outlined"
           />
           <Button 
-            label="Back to Home" 
+            label="হোমে ফিরে যান" 
             @click="$router.push('/')" 
             class="p-button-text"
           />
@@ -211,8 +211,8 @@ const speak = (text: string) => {
   } else {
     toast.add({
       severity: 'warn',
-      summary: 'Audio not supported',
-      detail: 'Text-to-speech is not supported in your browser.',
+      summary: 'অডিও সমর্থিত নয়',
+      detail: 'টেক্সট-টু-স্পিচ আপনার ব্রাউজারে সমর্থিত নয়।',
       life: 3000
     });
   }
@@ -324,30 +324,29 @@ const restartQuiz = () => {
   startQuiz();
 };
 
-// Get result message based on score
+// Update result messages and descriptions to Bengali
 const getResultMessage = () => {
   const percentage = (score.value / questionCount) * 100;
-  if (percentage >= 80) return 'Excellent Work!';
-  if (percentage >= 60) return 'Good Job!';
-  if (percentage >= 40) return 'Not Bad!';
-  return 'Keep Practicing!';
+  if (percentage >= 80) return 'অসাধারণ!';
+  if (percentage >= 60) return 'ভালো হয়েছে!';
+  if (percentage >= 40) return 'মোটামুটি!';
+  return 'চেষ্টা চালিয়ে যান!';
 };
 
-// Get result description
 const getResultDescription = () => {
   const percentage = (score.value / questionCount) * 100;
-  if (percentage >= 80) return 'You have an impressive Turkish vocabulary! Keep up the great work!';
-  if (percentage >= 60) return 'You have a good grasp of Turkish vocabulary. Keep practicing to improve further!';
-  if (percentage >= 40) return 'You know some Turkish words. With more practice, you\'ll get even better!';
-  return 'Learning a new language takes time. Keep practicing and you\'ll see improvement soon!';
+  if (percentage >= 80) return 'আপনার তুর্কি শব্দভাণ্ডার চমৎকার! এভাবেই চালিয়ে যান!';
+  if (percentage >= 60) return 'আপনার তুর্কি শব্দভাণ্ডার ভালো। আরও অনুশীলন করুন!';
+  if (percentage >= 40) return 'আপনি কিছু তুর্কি শব্দ জানেন। আরও চর্চা করুন!';
+  return 'নতুন ভাষা শিখতে সময় লাগে। চর্চা চালিয়ে যান, উন্নতি হবে!';
 };
 
 // Initialize with a welcome message
 onMounted(() => {
   toast.add({
     severity: 'info',
-    summary: 'Welcome to Turkish Quiz!',
-    detail: 'Test your knowledge of Turkish vocabulary.',
+    summary: 'তুর্কি কুইজে স্বাগতম!',
+    detail: 'আপনার তুর্কি শব্দভাণ্ডার পরীক্ষা করুন।',
     life: 3000
   });
 });
