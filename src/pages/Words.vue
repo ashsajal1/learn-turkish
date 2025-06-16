@@ -100,13 +100,14 @@
           </div>
         </template>
         
-        <Column field="id" header="#" style="width: 60px">
+        <!-- Remove the ID column from the DataTable -->
+        <!-- <Column field="id" header="#" style="width: 60px">
           <template #body="{ data }">
             <div class="text-center text-gray-500 dark:text-gray-400 text-sm">
               {{ data.id }}
             </div>
           </template>
-        </Column>
+        </Column> -->
         
         <Column field="word" header="Word" sortable style="min-width: 180px">
           <template #body="{ data }">
