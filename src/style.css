@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@100..800&display=swap');
 
 /* Primary and Surface Palettes */
 :root {
@@ -25,6 +26,7 @@
   --p-surface-900: #18181b;
   --p-surface-950: #09090b;
   --p-content-border-radius: 6px;
+  font-family: 'Anek Bangla', sans-serif;
 }
 
 /* Light */
