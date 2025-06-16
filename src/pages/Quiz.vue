@@ -117,6 +117,9 @@
           <div v-else class="text-red-600 dark:text-red-400 text-lg font-medium">
             <i class="pi pi-times-circle mr-2"></i> ভুল! সঠিক উত্তর: "{{ currentQuestion.correctAnswer }}"
           </div>
+          <div v-if="currentQuestion.type === 'listening'" class="mt-2 text-base text-gray-700 dark:text-gray-200">
+            <span class="font-semibold">উত্তর শব্দটি ছিল:</span> <span class="text-primary-600 dark:text-primary-400 font-bold">{{ currentQuestion.word }}</span>
+          </div>
         </div>
         
         <Button 
