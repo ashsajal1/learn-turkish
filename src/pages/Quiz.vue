@@ -113,8 +113,12 @@
 
         <!-- Speaking Question -->
         <div v-else-if="currentQuestion.type === 'speaking'" class="text-center">
-          <div class="text-2xl font-bold mb-6">
+          <div class="text-2xl font-bold mb-4">
             "<span class="text-primary-600 dark:text-primary-400">{{ currentQuestion.translation }}</span>" শব্দের তুর্কি উচ্চারণ করুন:
+          </div>
+          <div class="mb-2 text-base text-gray-700 dark:text-gray-200">
+            <span class="font-semibold">হিন্ট (তুর্কি শব্দ):</span>
+            <span class="text-primary-700 dark:text-primary-300 font-bold">{{ currentQuestion.word }}</span>
           </div>
           <div class="mb-4 flex flex-col items-center gap-2">
             <Button 
@@ -134,6 +138,14 @@
           </div>
           <div v-if="spokenText" class="mb-2 text-lg">
             <span class="font-semibold">আপনার উচ্চারণ:</span> {{ spokenText }}
+          </div>
+          <div v-if="selectedAnswer !== null" class="mt-2">
+            <Button
+              label="সঠিক উচ্চারণ শুনুন"
+              icon="pi pi-volume-up"
+              class="p-button-text"
+              @click="speak(currentQuestion.word)"
+            />
           </div>
         </div>
       </div>
