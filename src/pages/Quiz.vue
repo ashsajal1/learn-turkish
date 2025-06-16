@@ -116,9 +116,18 @@
           <div class="text-2xl font-bold mb-4">
             "<span class="text-primary-600 dark:text-primary-400">{{ currentQuestion.translation }}</span>" শব্দের তুর্কি উচ্চারণ করুন:
           </div>
-          <div class="mb-2 text-base text-gray-700 dark:text-gray-200">
-            <span class="font-semibold">হিন্ট (তুর্কি শব্দ):</span>
-            <span class="text-primary-700 dark:text-primary-300 font-bold">{{ currentQuestion.word }}</span>
+          <div class="mb-2">
+            <Button
+              v-if="!showSpeakingHint"
+              label="হিন্ট দেখুন"
+              icon="pi pi-eye"
+              class="p-button-sm p-button-outlined mb-2"
+              @click="showSpeakingHint = true"
+            />
+            <div v-if="showSpeakingHint" class="text-base text-gray-700 dark:text-gray-200">
+              <span class="font-semibold">হিন্ট (তুর্কি শব্দ):</span>
+              <span class="text-primary-700 dark:text-primary-300 font-bold">{{ currentQuestion.word }}</span>
+            </div>
           </div>
           <div class="mb-4 flex flex-col items-center gap-2">
             <Button 
@@ -247,6 +256,7 @@ const selectedAnswer = ref<string | null>(null);
 const isCorrect = ref<boolean | null>(null);
 const showResults = ref(false);
 const questionCount = 10; // Number of questions in the quiz
+const showSpeakingHint = ref(false);
 
 // Questions array will be populated when quiz starts
 const questions = ref<Array<{
@@ -286,6 +296,7 @@ const startQuiz = () => {
   score.value = 0;
   selectedAnswer.value = null;
   isCorrect.value = null;
+  showSpeakingHint.value = false;
   
   // Generate questions
   generateQuestions();
@@ -421,12 +432,14 @@ const nextQuestion = () => {
     currentQuestionIndex.value++;
     selectedAnswer.value = null;
     isCorrect.value = null;
+    showSpeakingHint.value = false;
   }
 };
 
 // Restart the quiz
 const restartQuiz = () => {
   showResults.value = false;
+  showSpeakingHint.value = false;
   startQuiz();
 };
 
