@@ -107,7 +107,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { getRandomWordsByPart } from '../utils/words';
 
 // Mapping between Bengali and English parts of speech
@@ -237,11 +237,18 @@ function initVoices() {
 // Initialize on component mount
 onMounted(async () => {
   await initVoices();
-  // Initialize with 10 random words and play the first word automatically
+  // Initialize with 10 random words
   getRandomWords();
-  setTimeout(() => {
-    playWord();
-  }, 500);
+});
+
+// Watch for word changes and speak automatically
+watch(currentWord, (newWord) => {
+  if (newWord) {
+    // Small delay to ensure smooth transition
+    setTimeout(() => {
+      playWord();
+    }, 300);
+  }
 });
 </script>
 
