@@ -48,44 +48,20 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { getRandomWordsByPart } from '../utils/words';
 
-// Example Turkish words with parts of speech
-const wordBank = [
-  { word: 'merhaba', part: 'interjection' },
-  { word: 'teşekkürler', part: 'interjection' },
-  { word: 'güle güle', part: 'interjection' },
-  { word: 'evet', part: 'adverb' },
-  { word: 'hayır', part: 'adverb' },
-  { word: 'lütfen', part: 'adverb' },
-  { word: 'günaydın', part: 'interjection' },
-  { word: 'iyi', part: 'adjective' },
-  { word: 'akşamlar', part: 'noun' },
-  { word: 'nasılsın', part: 'verb' },
-  { word: 'hoşça kal', part: 'interjection' },
-  { word: 'kitap', part: 'noun' },
-  { word: 'yazmak', part: 'verb' },
-  { word: 'güzel', part: 'adjective' },
-  { word: 'hızlı', part: 'adjective' },
-  { word: 'koşmak', part: 'verb' },
-  { word: 'masa', part: 'noun' },
-  { word: 've', part: 'conjunction' },
-  { word: 'ama', part: 'conjunction' },
-  { word: 'çok', part: 'adverb' }
+const partsOfSpeech = [
+  'Noun', 'Verb', 'Adjective', 'Adverb', 'Conjunction', 'Interjection', 'Pronoun', 'Preposition'
 ];
-
-const partsOfSpeech = ['noun', 'verb', 'adjective', 'adverb', 'conjunction', 'interjection'];
 const selectedPart = ref('all');
-const randomWords = ref<{ word: string, part: string }[]>([]);
+const randomWords = ref<any[]>([]);
 const currentIndex = ref(0);
 const currentWord = computed(() => randomWords.value.length ? randomWords.value[currentIndex.value].word : '');
 const isListening = ref(false);
 const result = ref('');
 
 function getRandomWords() {
-  let filtered = selectedPart.value === 'all' ? wordBank : wordBank.filter(w => w.part === selectedPart.value);
-  // Shuffle and pick 10
-  filtered = filtered.sort(() => Math.random() - 0.5).slice(0, 10);
-  randomWords.value = filtered;
+  randomWords.value = getRandomWordsByPart(selectedPart.value, 10);
   currentIndex.value = 0;
   result.value = '';
 }
