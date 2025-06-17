@@ -62,14 +62,16 @@
         </div>
         <div class="flex gap-2 flex-wrap justify-center">
           <button
-            class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-green-400 shadow-md transition"
+            class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-green-400 shadow-md transition disabled:opacity-60 disabled:cursor-not-allowed"
             @click="playWord"
+            :disabled="isSpeaking"
             :aria-label="`শব্দ বাজান`"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-1">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" 
+                 :class="['w-6 h-6 mr-1', isSpeaking ? 'animate-pulse' : '']">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l15-9-15-9z" />
             </svg>
-            শুনুন
+            {{ isSpeaking ? 'বলছে...' : 'শুনুন' }}
           </button>
           <button
             class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-md transition disabled:opacity-60 disabled:cursor-not-allowed"
@@ -105,7 +107,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { getRandomWordsByPart } from '../utils/words';
 
 // Mapping between Bengali and English parts of speech
@@ -129,6 +131,7 @@ const currentIndex = ref(0);
 const currentWord = computed(() => randomWords.value.length ? randomWords.value[currentIndex.value].word : '');
 const currentTranslation = computed(() => randomWords.value.length ? randomWords.value[currentIndex.value].translation : '');
 const isListening = ref(false);
+const isSpeaking = ref(false);
 const result = ref('');
 
 function getRandomWords() {
@@ -180,16 +183,66 @@ function startRecognition() {
 
 function playWord() {
   if (!currentWord.value) return;
+  
+  // Cancel any ongoing speech
+  window.speechSynthesis.cancel();
+
   const utter = new window.SpeechSynthesisUtterance(currentWord.value);
   utter.lang = 'tr-TR';
+  
+  // Set voice to Turkish if available
+  const voices = window.speechSynthesis.getVoices();
+  const turkishVoice = voices.find(voice => voice.lang.includes('tr'));
+  if (turkishVoice) {
+    utter.voice = turkishVoice;
+  }
+
+  // Handle events
+  utter.onstart = () => {
+    isSpeaking.value = true;
+  };
+  
+  utter.onend = () => {
+    isSpeaking.value = false;
+  };
+
+  utter.onerror = (event) => {
+    console.error('Speech synthesis error:', event);
+    result.value = 'আওয়াজ চালাতে সমস্যা হয়েছে। আবার চেষ্টা করুন।';
+    isSpeaking.value = false;
+  };
+
+  // Adjust speech parameters for better clarity
+  utter.rate = 0.9; // Slightly slower
+  utter.pitch = 1;
+  utter.volume = 1;
+
   window.speechSynthesis.speak(utter);
 }
 
-// Initialize with 10 random words and play the first word automatically
-getRandomWords();
-setTimeout(() => {
-  playWord();
-}, 500);
+// Initialize voices
+function initVoices() {
+  return new Promise<void>((resolve) => {
+    const checkVoices = () => {
+      if (window.speechSynthesis.getVoices().length > 0) {
+        resolve();
+      } else {
+        window.speechSynthesis.addEventListener('voiceschanged', () => resolve(), { once: true });
+      }
+    };
+    checkVoices();
+  });
+}
+
+// Initialize on component mount
+onMounted(async () => {
+  await initVoices();
+  // Initialize with 10 random words and play the first word automatically
+  getRandomWords();
+  setTimeout(() => {
+    playWord();
+  }, 500);
+});
 </script>
 
 <style scoped>
