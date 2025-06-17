@@ -31,7 +31,11 @@ export const words = [
 export function getRandomWordsByPart(part: string | 'all', count = 10) {
   let filtered = part === 'all'
     ? words
-    : words.filter(w => w.partsOfSpeech?.toLowerCase() === part.toLowerCase());
+    : words.filter(w => w.partsOfSpeech === part); // Exact match since we're using the correct case from the mapping
+  if (filtered.length === 0) {
+    console.warn(`No words found for part of speech: ${part}`);
+    filtered = words; // Fallback to all words if none found
+  }
   // Shuffle and pick count
   filtered = filtered.sort(() => Math.random() - 0.5).slice(0, count);
   return filtered;

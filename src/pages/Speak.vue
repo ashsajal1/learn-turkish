@@ -108,6 +108,18 @@
 import { ref, computed } from 'vue';
 import { getRandomWordsByPart } from '../utils/words';
 
+// Mapping between Bengali and English parts of speech
+const partsOfSpeechMap: Record<string, string> = {
+  'বিশেষ্য': 'Noun',
+  'ক্রিয়া': 'Verb',
+  'বিশেষণ': 'Adjective',
+  'ক্রিয়াবিশেষণ': 'Adverb',
+  'সংযোজক': 'Conjunction',
+  'অনুজ্জ্বল': 'Interjection',
+  'সর্বনাম': 'Pronoun',
+  'পূর্বসর্গ': 'Preposition'
+};
+
 const partsOfSpeech = [
   'বিশেষ্য', 'ক্রিয়া', 'বিশেষণ', 'ক্রিয়াবিশেষণ', 'সংযোজক', 'অনুজ্জ্বল', 'সর্বনাম', 'পূর্বসর্গ'
 ];
@@ -120,7 +132,8 @@ const isListening = ref(false);
 const result = ref('');
 
 function getRandomWords() {
-  randomWords.value = getRandomWordsByPart(selectedPart.value, 10);
+  const partOfSpeech = selectedPart.value === 'all' ? 'all' : partsOfSpeechMap[selectedPart.value];
+  randomWords.value = getRandomWordsByPart(partOfSpeech, 10);
   currentIndex.value = 0;
   result.value = '';
 }
