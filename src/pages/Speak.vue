@@ -49,8 +49,14 @@
         </button>
       </div>
       <div class="flex flex-col items-center space-y-4">
-        <div class="w-full flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
-          <span>শব্দ {{ currentIndex + 1 }} / {{ randomWords.length || 10 }}</span>
+        <div class="w-full flex flex-wrap justify-between items-center gap-2 text-sm">
+          <div class="flex items-center gap-4">
+            <span class="text-gray-500 dark:text-gray-400">শব্দ {{ currentIndex + 1 }} / {{ randomWords.length || 10 }}</span>
+            <div class="flex items-center gap-2">
+              <span class="text-green-600 dark:text-green-400">✓ {{ correctCount }}/{{ attemptCount }}</span>
+              <span class="text-blue-600 dark:text-blue-400">({{ successRate }}%)</span>
+            </div>
+          </div>
           <button class="text-xs text-gray-400 hover:text-blue-500 transition" @click="getRandomWords" title="পুনরায় শুরু করুন">
             <svg class="w-4 h-4 inline" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A7.978 7.978 0 0 0 12 4.582M4.582 9H9m11 11v-5h-.581m0 0a8.003 8.003 0 0 1-15.357-2m15.357 2H15"/></svg>
             পুনরায় শুরু করুন
@@ -133,12 +139,21 @@ const currentTranslation = computed(() => randomWords.value.length ? randomWords
 const isListening = ref(false);
 const isSpeaking = ref(false);
 const result = ref('');
+const correctCount = ref(0);
+const attemptCount = ref(0);
+const successRate = computed(() => {
+  if (attemptCount.value === 0) return 0;
+  return Math.round((correctCount.value / attemptCount.value) * 100);
+});
 
 function getRandomWords() {
   const partOfSpeech = selectedPart.value === 'all' ? 'all' : partsOfSpeechMap[selectedPart.value];
   randomWords.value = getRandomWordsByPart(partOfSpeech, 10);
   currentIndex.value = 0;
   result.value = '';
+  // Reset scores when getting new words
+  correctCount.value = 0;
+  attemptCount.value = 0;
 }
 
 function nextWord() {
@@ -164,8 +179,10 @@ function startRecognition() {
 
   recognition.onresult = (event: any) => {
     const transcript = event.results[0][0].transcript.trim().toLowerCase();
+    attemptCount.value++;
     if (transcript === currentWord.value.toLowerCase()) {
       result.value = 'সঠিক!';
+      correctCount.value++;
     } else {
       result.value = `আপনি বলেছেন: "${transcript}"`;
     }
