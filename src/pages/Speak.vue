@@ -22,19 +22,31 @@
     </div>
     <div class="flex flex-col items-center space-y-4">
       <div class="text-2xl font-semibold">{{ currentWord }}</div>
-      <button
-        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-blue-400"
-        @click="startRecognition"
-        :disabled="isListening"
-      >
-        <svg v-if="!isListening" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-2">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v2m0 0a4 4 0 0 0 4-4h-8a4 4 0 0 0 4 4zm0-2V6a4 4 0 1 0-8 0v6a4 4 0 0 0 8 0z" />
-        </svg>
-        <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-2 animate-pulse">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v2m0 0a4 4 0 0 0 4-4h-8a4 4 0 0 0 4 4zm0-2V6a4 4 0 1 0-8 0v6a4 4 0 0 0 8 0z" />
-        </svg>
-        {{ isListening ? 'Listening...' : 'Start Speaking' }}
-      </button>
+      <div class="flex gap-2">
+        <button
+          class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-green-400"
+          @click="playWord"
+          :aria-label="`Play ${currentWord}`"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-1">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v18l15-9-15-9z" />
+          </svg>
+          Play
+        </button>
+        <button
+          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-blue-400"
+          @click="startRecognition"
+          :disabled="isListening"
+        >
+          <svg v-if="!isListening" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-2">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v2m0 0a4 4 0 0 0 4-4h-8a4 4 0 0 0 4 4zm0-2V6a4 4 0 1 0-8 0v6a4 4 0 0 0 8 0z" />
+          </svg>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mr-2 animate-pulse">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18v2m0 0a4 4 0 0 0 4-4h-8a4 4 0 0 0 4 4zm0-2V6a4 4 0 1 0-8 0v6a4 4 0 0 0 8 0z" />
+          </svg>
+          {{ isListening ? 'Listening...' : 'Start Speaking' }}
+        </button>
+      </div>
       <div v-if="result" class="mt-2 text-lg">
         <span :class="result === 'Correct!' ? 'text-green-600' : 'text-red-600'">{{ result }}</span>
       </div>
@@ -106,8 +118,18 @@ function startRecognition() {
   recognition.start();
 }
 
-// Initialize with 10 random words
+function playWord() {
+  if (!currentWord.value) return;
+  const utter = new window.SpeechSynthesisUtterance(currentWord.value);
+  utter.lang = 'tr-TR';
+  window.speechSynthesis.speak(utter);
+}
+
+// Initialize with 10 random words and play the first word automatically
 getRandomWords();
+setTimeout(() => {
+  playWord();
+}, 500);
 </script>
 
 <style scoped>
