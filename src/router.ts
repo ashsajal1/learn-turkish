@@ -10,6 +10,7 @@ import Puzzle from "./pages/Puzzle.vue";
 import Accent from "./pages/Accent.vue";
 import Pronunciation from "./pages/Pronunciation.vue";
 import Usage from "./pages/Usage.vue";
+import Speak from "./pages/Speak.vue";
 
 const routes = [
   {
@@ -51,6 +52,11 @@ const routes = [
     path: "/usage",
     meta: { title: "Usage", description: "Pronunciation" },
     component: Usage,
+  },
+   {
+    path: "/speak",
+    meta: { title: "Usage", description: "Pronunciation" },
+    component: Speak,
   },
   {
     path: "/about",
