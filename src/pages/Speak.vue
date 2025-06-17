@@ -56,8 +56,9 @@
             পুনরায় শুরু করুন
           </button>
         </div>
-        <div class="text-2xl font-semibold bg-blue-50 dark:bg-blue-950 px-6 py-3 rounded-lg shadow-inner min-h-[3rem] flex items-center justify-center w-full">
-          {{ currentWord }}
+        <div class="text-2xl font-semibold bg-blue-50 dark:bg-blue-950 px-6 py-3 rounded-lg shadow-inner min-h-[3rem] flex flex-col items-center justify-center w-full gap-2">
+          <span>{{ currentWord }}</span>
+          <span class="text-lg text-gray-600 dark:text-gray-400">{{ currentTranslation }}</span>
         </div>
         <div class="flex gap-2 flex-wrap justify-center">
           <button
@@ -114,6 +115,7 @@ const selectedPart = ref('all');
 const randomWords = ref<any[]>([]);
 const currentIndex = ref(0);
 const currentWord = computed(() => randomWords.value.length ? randomWords.value[currentIndex.value].word : '');
+const currentTranslation = computed(() => randomWords.value.length ? randomWords.value[currentIndex.value].translation : '');
 const isListening = ref(false);
 const result = ref('');
 
