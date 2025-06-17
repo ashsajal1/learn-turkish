@@ -26,3 +26,13 @@ export const words = [
   ...preposition,
   ...interjection,
 ]
+
+// Utility to get 10 random words with part of speech info
+export function getRandomWordsByPart(part: string | 'all', count = 10) {
+  let filtered = part === 'all'
+    ? words
+    : words.filter(w => w.partsOfSpeech?.toLowerCase() === part.toLowerCase());
+  // Shuffle and pick count
+  filtered = filtered.sort(() => Math.random() - 0.5).slice(0, count);
+  return filtered;
+}

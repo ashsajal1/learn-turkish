@@ -10,8 +10,16 @@
       <h1 class="text-3xl font-bold text-blue-700 dark:text-blue-300">Speak Test</h1>
     </div>
     <p class="mb-4 text-gray-700 dark:text-gray-200">
-      Test your Turkish pronunciation! Click the microphone, say the word, and see if you pronounced it correctly.
+      Test your Turkish pronunciation! Select a part of speech, get 10 random words, and try to pronounce them.
     </p>
+    <div class="mb-4 flex flex-wrap gap-2 items-center">
+      <label class="font-medium mr-2">Part of Speech:</label>
+      <select v-model="selectedPart" class="border rounded px-2 py-1 focus:outline-none focus:ring focus:border-blue-400">
+        <option value="all">All</option>
+        <option v-for="part in partsOfSpeech" :key="part" :value="part">{{ part }}</option>
+      </select>
+      <button class="ml-2 text-sm text-blue-600 hover:underline" @click="getRandomWords">New Set</button>
+    </div>
     <div class="flex flex-col items-center space-y-4">
       <div class="text-2xl font-semibold">{{ currentWord }}</div>
       <button
@@ -39,46 +47,57 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
-// Extend the Window interface to include SpeechRecognition and webkitSpeechRecognition
-declare global {
-  interface Window {
-    SpeechRecognition: any;
-    webkitSpeechRecognition: any;
-  }
-}
-
-const words = [
-  'merhaba',
-  'teşekkürler',
-  'güle güle',
-  'evet',
-  'hayır',
-  'lütfen',
-  'günaydın',
-  'iyi akşamlar',
-  'nasılsın',
-  'hoşça kal'
+// Example Turkish words with parts of speech
+const wordBank = [
+  { word: 'merhaba', part: 'interjection' },
+  { word: 'teşekkürler', part: 'interjection' },
+  { word: 'güle güle', part: 'interjection' },
+  { word: 'evet', part: 'adverb' },
+  { word: 'hayır', part: 'adverb' },
+  { word: 'lütfen', part: 'adverb' },
+  { word: 'günaydın', part: 'interjection' },
+  { word: 'iyi', part: 'adjective' },
+  { word: 'akşamlar', part: 'noun' },
+  { word: 'nasılsın', part: 'verb' },
+  { word: 'hoşça kal', part: 'interjection' },
+  { word: 'kitap', part: 'noun' },
+  { word: 'yazmak', part: 'verb' },
+  { word: 'güzel', part: 'adjective' },
+  { word: 'hızlı', part: 'adjective' },
+  { word: 'koşmak', part: 'verb' },
+  { word: 'masa', part: 'noun' },
+  { word: 've', part: 'conjunction' },
+  { word: 'ama', part: 'conjunction' },
+  { word: 'çok', part: 'adverb' }
 ];
 
+const partsOfSpeech = ['noun', 'verb', 'adjective', 'adverb', 'conjunction', 'interjection'];
+const selectedPart = ref('all');
+const randomWords = ref<{ word: string, part: string }[]>([]);
 const currentIndex = ref(0);
-const currentWord = ref(words[currentIndex.value]);
+const currentWord = computed(() => randomWords.value.length ? randomWords.value[currentIndex.value].word : '');
 const isListening = ref(false);
 const result = ref('');
-// TypeScript compatibility for SpeechRecognition
-type SpeechRecognitionType = typeof window.SpeechRecognition extends undefined
-  ? typeof window.webkitSpeechRecognition
-  : typeof window.SpeechRecognition;
 
-let recognition: InstanceType<SpeechRecognitionType> | null = null;
-
-function nextWord() {
-  currentIndex.value = (currentIndex.value + 1) % words.length;
-  currentWord.value = words[currentIndex.value];
+function getRandomWords() {
+  let filtered = selectedPart.value === 'all' ? wordBank : wordBank.filter(w => w.part === selectedPart.value);
+  // Shuffle and pick 10
+  filtered = filtered.sort(() => Math.random() - 0.5).slice(0, 10);
+  randomWords.value = filtered;
+  currentIndex.value = 0;
   result.value = '';
 }
 
+function nextWord() {
+  if (randomWords.value.length === 0) return;
+  currentIndex.value = (currentIndex.value + 1) % randomWords.value.length;
+  result.value = '';
+}
+
+// Speech Recognition
+let recognition: any = null;
 function startRecognition() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
     alert('Speech Recognition is not supported in this browser.');
@@ -110,6 +129,9 @@ function startRecognition() {
   };
   recognition.start();
 }
+
+// Initialize with 10 random words
+getRandomWords();
 </script>
 
 <style scoped>
