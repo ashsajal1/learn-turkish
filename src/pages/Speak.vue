@@ -13,13 +13,40 @@
       <p class="mb-2 text-gray-700 dark:text-gray-200">
         Test your Turkish pronunciation! Select a part of speech, get 10 random words, and try to pronounce them.
       </p>
-      <div class="mb-2 flex flex-wrap gap-2 items-center">
-        <label class="font-medium mr-2">Part of Speech:</label>
-        <select v-model="selectedPart" class="border rounded px-2 py-1 focus:outline-none focus:ring focus:border-blue-400">
-          <option value="all">All</option>
-          <option v-for="part in partsOfSpeech" :key="part" :value="part">{{ part }}</option>
-        </select>
-        <button class="ml-2 text-sm text-blue-600 hover:underline" @click="getRandomWords">New Set</button>
+      <div class="mb-6 flex flex-wrap items-center gap-4 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg shadow-inner">
+        <div class="relative w-full sm:w-auto">
+          <label for="partOfSpeech" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Part of Speech</label>
+          <select 
+            id="partOfSpeech"
+            v-model="selectedPart" 
+            class="block w-full sm:w-48 px-4 py-2 text-gray-900 dark:text-white bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors cursor-pointer appearance-none"
+            @change="getRandomWords"
+          >
+            <option value="all" class="bg-white dark:bg-gray-800">All Parts</option>
+            <option 
+              v-for="part in partsOfSpeech" 
+              :key="part" 
+              :value="part"
+              class="bg-white dark:bg-gray-800"
+            >
+              {{ part }}
+            </option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300 mt-6">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+            </svg>
+          </div>
+        </div>
+        <button 
+          @click="getRandomWords" 
+          class="mt-6 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors flex items-center gap-2"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          New Set
+        </button>
       </div>
       <div class="flex flex-col items-center space-y-4">
         <div class="w-full flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
