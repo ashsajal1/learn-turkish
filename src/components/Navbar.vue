@@ -108,6 +108,8 @@ import { watchEffect, computed, ref, onMounted, onUnmounted } from "vue";
 const navItems = [
   { name: 'হোম', path: '/', icon: 'pi pi-home' },
   { name: 'উচ্চারণ', path: '/pronunciation', icon: 'pi pi-volume-up' },
+  { name: 'স্বরভঙ্গি', path: '/accent', icon: 'pi pi-sliders-h' },
+  { name: 'বলার অনুশীলন', path: '/speak', icon: 'pi pi-microphone' },
   { name: 'ব্যাকরণ', path: '/grammar', icon: 'pi pi-book' },
   { name: 'শব্দভাণ্ডার', path: '/words', icon: 'pi pi-list' },
   { name: 'কুইজ', path: '/quiz', icon: 'pi pi-question-circle' },
